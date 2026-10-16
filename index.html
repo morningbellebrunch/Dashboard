@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#f0f5f0">
+<title>Weekly Performance</title>
+<script>
+(function(){
+  var t=null; try{t=localStorage.getItem('mb-theme');}catch(e){}
+  if(t!=='light'&&t!=='dark') t=(window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light';
+  document.documentElement.setAttribute('data-theme',t);
+  var m=document.querySelector('meta[name="theme-color"]'); if(m) m.setAttribute('content',t==='dark'?'#0b1a20':'#f0f5f0');
+})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --mb-green:#99C961; --mb-coral:#fc826d; --mb-teal:#3c5c68; --mb-pinkberry:#d70158; --mb-yellow:#ffde5c;
+  --mb-amber:#fbaf41; --mb-sage:#9bc4bc; --mb-charcoal:#4d4d4d; --mb-orange:#f46e3b;
+  --ink:rgba(28,48,58,0.95); --ink-soft:rgba(50,80,92,0.62); --ink-faint:rgba(60,92,104,0.42); --hairline:rgba(60,92,104,0.14);
+  --ok:#4c7f1f; --bad:#c23a2b;
+  --serif:'Playfair Display', Georgia, serif; --sans:'DM Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --ease-liquid:cubic-bezier(0.16,1.1,0.3,1); --ease-out:cubic-bezier(0.22,1,0.36,1); --ease-spring:cubic-bezier(0.34,1.56,0.64,1);
+  --glass-blur:blur(7px) saturate(230%) brightness(1.1) contrast(1.06);
+  --glass-blur-lg:blur(34px) saturate(200%) brightness(1.1) contrast(1.03);
+  --glass-blur-hover:blur(9px) saturate(240%) brightness(1.2) contrast(1.08);
+  --glass-edge:inset 0 0 0 1px rgba(255,255,255,.5),inset 0 2px 1px -1px rgba(255,255,255,1),inset 0 -2px 2px -1px rgba(255,255,255,.75),inset 3px 0 6px -3px rgba(255,255,255,.8),inset -3px 0 6px -3px rgba(255,255,255,.8),inset 0 -9px 14px -10px rgba(60,92,104,.5),inset 0 9px 14px -10px rgba(60,92,104,.28);
+  --glass-shadow:0 14px 40px rgba(40,70,84,.11),0 3px 10px rgba(40,70,84,.06);
+  --lens-rim:conic-gradient(from 205deg,rgba(255,255,255,1) 0%,rgba(255,255,255,.95) 10%,rgba(155,196,188,.6) 20%,rgba(60,92,104,.26) 32%,rgba(60,92,104,.3) 46%,rgba(153,201,97,.45) 58%,rgba(255,255,255,.8) 68%,rgba(255,222,92,.45) 78%,rgba(255,255,255,1) 88%,rgba(255,255,255,1) 100%);
+  --surface:transparent; --spec:.85;
+  --tint:60,92,104; --tint-alpha:.30; --tint-base:.05;
+  --mx:50%; --my:30%; --hp:0;
+  --chart-a:#5f9a2c; --chart-b:#3c5c68; --chart-grid:rgba(60,92,104,.14); --chart-fill:rgba(153,201,97,.2);
+  --canvas:linear-gradient(160deg,#f0f5f0,#e8f2f4 35%,#f5f7ee 70%,#faf8f0);
+  --row-bp:rgba(155,196,188,.16);
+  color-scheme:light;
+}
+html[data-theme="dark"]{
+  --ink:rgba(238,246,248,0.96); --ink-soft:rgba(210,228,232,0.70); --ink-faint:rgba(200,220,226,0.48); --hairline:rgba(255,255,255,0.14);
+  --ok:#a6d977; --bad:#ff8f7d;
+  --glass-blur:blur(7px) saturate(160%) brightness(0.92) contrast(1.05);
+  --glass-blur-lg:blur(34px) saturate(150%) brightness(0.9) contrast(1.02);
+  --glass-blur-hover:blur(9px) saturate(175%) brightness(1.02) contrast(1.06);
+  --glass-edge:inset 0 0 0 1px rgba(255,255,255,.10),inset 0 1px 1px rgba(255,255,255,.28),inset 0 -1px 2px rgba(0,0,0,.35),inset 0 -10px 16px -10px rgba(0,0,0,.45);
+  --glass-shadow:0 14px 40px rgba(0,0,0,.35),0 3px 10px rgba(0,0,0,.25);
+  --lens-rim:conic-gradient(from 205deg,rgba(255,255,255,.55) 0%,rgba(255,255,255,.4) 10%,rgba(155,196,188,.35) 22%,rgba(0,0,0,.2) 36%,rgba(0,0,0,.25) 48%,rgba(153,201,97,.3) 60%,rgba(255,255,255,.35) 70%,rgba(255,222,92,.25) 80%,rgba(255,255,255,.5) 90%,rgba(255,255,255,.55) 100%);
+  --surface:rgba(9,20,25,0.55); --spec:.32;
+  --chart-a:#b9e08a; --chart-b:#a9c9d3; --chart-grid:rgba(255,255,255,.12); --chart-fill:rgba(153,201,97,.14);
+  --canvas:radial-gradient(70% 50% at 15% 10%,rgba(60,92,104,.45),transparent 70%),radial-gradient(60% 50% at 90% 85%,rgba(60,92,104,.35),transparent 70%),linear-gradient(180deg,#0d1c22,#0a1418);
+  --row-bp:rgba(155,196,188,.10);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{background:#f0f5f0}
+html[data-theme="dark"]{background:#0b1a20}
+body{margin:0;font-family:var(--sans);color:var(--ink);background:transparent;-webkit-font-smoothing:antialiased;min-height:100lvh}
+button,select,input{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--mb-teal);outline-offset:3px;border-radius:10px}
+html[data-theme="dark"] :focus-visible{outline-color:#a9c9d3}
+
+/* Layer 1, 2, 3: canvas, orbs, grain */
+.canvas{position:fixed;left:0;top:0;width:100%;height:100lvh;z-index:0;background:var(--canvas);pointer-events:none}
+.orb{position:absolute;border-radius:50%;filter:blur(52px);will-change:transform}
+.o1{width:52vmax;height:52vmax;left:-16vmax;top:-14vmax;background:radial-gradient(circle,rgba(153,201,97,1),rgba(153,201,97,0) 68%);opacity:.7;animation:r1 13s ease-in-out infinite alternate}
+.o2{width:44vmax;height:44vmax;right:-18vmax;top:6vh;background:radial-gradient(circle,rgba(155,196,188,1),rgba(155,196,188,0) 68%);opacity:.8;animation:r2 15s ease-in-out infinite alternate}
+.o3{width:38vmax;height:38vmax;left:18vw;bottom:-18vmax;background:radial-gradient(circle,rgba(255,222,92,1),rgba(255,222,92,0) 68%);opacity:.55;animation:r3 12s ease-in-out infinite alternate}
+.o4{width:30vmax;height:30vmax;right:2vw;bottom:-8vmax;background:radial-gradient(circle,rgba(252,130,109,1),rgba(252,130,109,0) 68%);opacity:.45;animation:r4 14s ease-in-out infinite alternate}
+.o5{width:26vmax;height:26vmax;left:40vw;top:20vh;background:radial-gradient(circle,rgba(60,92,104,1),rgba(60,92,104,0) 68%);opacity:.45;animation:r5 11s ease-in-out infinite alternate}
+html[data-theme="dark"] .o1{opacity:.32} html[data-theme="dark"] .o2{opacity:.4} html[data-theme="dark"] .o3{opacity:.18} html[data-theme="dark"] .o4{opacity:.22} html[data-theme="dark"] .o5{opacity:.45}
+@keyframes r1{to{transform:translate(8vw,6vh) scale(1.08)}} @keyframes r2{to{transform:translate(-7vw,8vh) scale(.94)}}
+@keyframes r3{to{transform:translate(10vw,-6vh) scale(1.1)}} @keyframes r4{to{transform:translate(-9vw,-5vh) scale(1.06)}}
+@keyframes r5{to{transform:translate(-6vw,10vh) scale(1.12)}}
+.grain{position:absolute;inset:0;opacity:.5;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E")}
+html[data-theme="dark"] .grain{opacity:.25}
+
+/* Layer 4: glass */
+.glass{position:relative;border:none;border-radius:22px;
+  background:
+    linear-gradient(168deg,rgba(255,255,255,.46) 0%,rgba(255,255,255,.10) 34%,rgba(255,255,255,0) 56%,rgba(255,255,255,.16) 100%),
+    radial-gradient(130% 80% at 50% 108%,rgba(var(--tint),var(--tint-alpha)) 0%,rgba(var(--tint),0) 78%),
+    linear-gradient(rgba(var(--tint),var(--tint-base)),rgba(var(--tint),var(--tint-base))),
+    var(--surface);
+  backdrop-filter:var(--glass-blur-lg);-webkit-backdrop-filter:var(--glass-blur-lg);
+  box-shadow:var(--glass-edge),var(--glass-shadow)}
+html[data-theme="dark"] .glass{background:
+    linear-gradient(168deg,rgba(255,255,255,.10) 0%,rgba(255,255,255,.03) 34%,rgba(255,255,255,0) 56%,rgba(255,255,255,.05) 100%),
+    radial-gradient(130% 80% at 50% 108%,rgba(var(--tint),calc(var(--tint-alpha) * .8)) 0%,rgba(var(--tint),0) 78%),
+    linear-gradient(rgba(var(--tint),var(--tint-base)),rgba(var(--tint),var(--tint-base))),
+    var(--surface)}
+.glass::after{content:'';position:absolute;inset:0;border-radius:inherit;padding:1.3px;background:var(--lens-rim);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:.85;pointer-events:none;z-index:3}
+.glass::before{content:'';position:absolute;inset:0;border-radius:inherit;background:radial-gradient(220px 150px at var(--mx) var(--my),rgba(255,255,255,var(--spec)) 0%,rgba(255,255,255,calc(var(--spec) * .3)) 24%,rgba(255,255,255,0) 62%);opacity:0;transition:opacity .3s ease;pointer-events:none;z-index:0}
+.glass:hover::before{opacity:1}
+.glass > *{position:relative;z-index:1}
+.t-green{--tint:153,201,97;--tint-alpha:.42;--tint-base:.07}
+.t-teal{--tint:60,92,104;--tint-alpha:.30;--tint-base:.05}
+.t-sage{--tint:155,196,188;--tint-alpha:.45;--tint-base:.08}
+.t-coral{--tint:252,130,109;--tint-alpha:.32;--tint-base:.05}
+.t-yellow{--tint:255,222,92;--tint-alpha:.40;--tint-base:.06}
+
+/* Header */
+.hdr{position:sticky;top:0;z-index:30;padding-top:env(safe-area-inset-top)}
+.hdr::before{content:'';position:absolute;inset:0;opacity:var(--hp);background:linear-gradient(180deg,rgba(244,249,245,.86),rgba(244,249,245,.7));backdrop-filter:blur(28px) saturate(210%) brightness(1.1);-webkit-backdrop-filter:blur(28px) saturate(210%) brightness(1.1);box-shadow:inset 0 -1px 1px rgba(255,255,255,.6),0 6px 24px rgba(40,70,84,.07)}
+html[data-theme="dark"] .hdr::before{background:linear-gradient(180deg,rgba(11,26,32,.9),rgba(11,26,32,.76));box-shadow:inset 0 -1px 1px rgba(255,255,255,.08),0 6px 24px rgba(0,0,0,.3)}
+.hdr-in{position:relative;height:58px;max-width:860px;margin:0 auto;padding:0 16px;display:flex;align-items:center;gap:12px}
+.hdr-title{flex:1;text-align:center;font-family:var(--serif);font-weight:600;font-size:17px;opacity:var(--hp);transform:translateY(calc((1 - var(--hp)) * 6px));white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rainbow{position:absolute;left:0;right:0;bottom:-2px;height:2.5px;opacity:var(--hp);background:linear-gradient(90deg,var(--mb-green),var(--mb-sage),var(--mb-teal),var(--mb-pinkberry),var(--mb-coral),var(--mb-orange),var(--mb-amber),var(--mb-yellow),var(--mb-green));background-size:200% 100%;animation:flow 9s linear infinite}
+@keyframes flow{to{background-position:200% 0}}
+.pill{position:relative;display:inline-flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;text-decoration:none;color:var(--ink);background:none;border:0;padding:0;cursor:pointer}
+.pill-face{display:inline-flex;align-items:center;gap:5px;height:32px;padding:0 13px 0 10px;border-radius:999px;font-weight:600;font-size:13.5px;
+  background:linear-gradient(170deg,rgba(255,255,255,.62),rgba(255,255,255,.22));backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);box-shadow:var(--glass-edge),0 3px 10px rgba(40,70,84,.08);transition:transform .42s var(--ease-liquid)}
+html[data-theme="dark"] .pill-face{background:linear-gradient(170deg,rgba(255,255,255,.12),rgba(255,255,255,.03)),rgba(9,20,25,.55)}
+.pill:hover .pill-face{transform:scale(1.05)} .pill:active .pill-face{transform:scale(.92);transition-duration:.16s}
+.pill-face svg{width:15px;height:15px;stroke:#5a8a2a;stroke-width:2.4;fill:none;stroke-linecap:round;stroke-linejoin:round}
+html[data-theme="dark"] .pill-face svg{stroke:#b9e08a}
+.sw-face{position:relative;width:66px;height:32px;border-radius:999px;padding:0;justify-content:space-between;padding:0 9px}
+.sw-face svg{width:14px;height:14px;stroke:var(--ink-soft);stroke-width:2;position:relative;z-index:1}
+.knob{position:absolute;top:3px;left:3px;width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,.95);box-shadow:0 2px 6px rgba(40,70,84,.25),inset 0 1px 1px #fff;transition:transform .42s var(--ease-liquid)}
+html[data-theme="dark"] .knob{transform:translateX(34px);background:rgba(169,201,211,.9)}
+
+/* Page */
+main{position:relative;z-index:1;max-width:860px;margin:0 auto;padding:4px 16px calc(120px + env(safe-area-inset-bottom))}
+.hero{padding:10px 4px 18px;transform-origin:left top;transform:scale(calc(1 - var(--hp) * .12));opacity:calc(1 - var(--hp) * .85)}
+.hero h1{font-family:var(--serif);font-weight:600;font-size:clamp(30px,6vw,42px);line-height:1.08;margin:0}
+.hero h1 em{font-style:italic;background:linear-gradient(100deg,#6fa83a,var(--mb-teal) 55%,var(--mb-pinkberry));-webkit-background-clip:text;background-clip:text;color:transparent}
+html[data-theme="dark"] .hero h1 em{background:linear-gradient(100deg,#b9e08a,#a9c9d3 55%,#ff6fa6);-webkit-background-clip:text;background-clip:text}
+.hero p{margin:8px 0 0;color:var(--ink-soft);font-size:13.5px}
+.toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 16px}
+.sel{appearance:none;-webkit-appearance:none;border:0;border-radius:999px;min-height:44px;padding:0 36px 0 16px;font-weight:600;font-size:13.5px;color:var(--ink);cursor:pointer;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%233c5c68' stroke-width='2'/%3E%3C/svg%3E") no-repeat right 14px center,linear-gradient(170deg,rgba(255,255,255,.62),rgba(255,255,255,.25));
+  backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);box-shadow:var(--glass-edge),0 3px 10px rgba(40,70,84,.08)}
+html[data-theme="dark"] .sel{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23a9c9d3' stroke-width='2'/%3E%3C/svg%3E") no-repeat right 14px center,linear-gradient(170deg,rgba(255,255,255,.1),rgba(255,255,255,.03)),rgba(9,20,25,.55)}
+.sel option{color:#1c303a;background:#fff}
+.btn{border:0;cursor:pointer;min-height:44px;padding:0 20px;border-radius:999px;font-weight:700;font-size:13.5px;color:#fff;background:linear-gradient(170deg,#4d7584,#3c5c68);box-shadow:inset 0 1px 1px rgba(255,255,255,.4),0 8px 20px rgba(60,92,104,.28);transition:transform .42s var(--ease-liquid)}
+.btn:hover{transform:translateY(-2px) scale(1.03)} .btn:active{transform:scale(.92);transition-duration:.16s}
+.sp{flex:1}
+.ph{display:none}
+
+.label{display:flex;align-items:center;gap:10px;font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-soft);margin:26px 2px 12px}
+.label::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--dot,var(--mb-green));box-shadow:0 0 10px var(--dot,var(--mb-green))}
+.label::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--hairline),transparent)}
+.d-green{--dot:var(--mb-green)} .d-teal{--dot:var(--mb-teal)} .d-sage{--dot:var(--mb-sage)} .d-coral{--dot:var(--mb-coral)} .d-amber{--dot:var(--mb-amber)} .d-yellow{--dot:var(--mb-yellow)}
+html[data-theme="dark"] .d-teal{--dot:#a9c9d3}
+
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));gap:12px}
+.tile{padding:16px 16px 14px;border-radius:16px;transition:transform .42s var(--ease-liquid)}
+.tile:hover{transform:translateY(-3px)}
+.tile .k{font-size:12px;color:var(--ink-soft);font-weight:500}
+.tile .v{font-family:var(--serif);font-size:28px;font-weight:600;margin:6px 0 2px;font-variant-numeric:lining-nums tabular-nums}
+.tile .s{font-size:12px;color:var(--ink-soft);font-variant-numeric:tabular-nums}
+.card{padding:18px;border-radius:22px;margin-bottom:12px}
+.card .note{font-size:12.5px;color:var(--ink-soft);margin:0 0 10px;line-height:1.5}
+.take{font-size:13.5px;line-height:1.55;margin:0}
+.take b{color:var(--mb-teal)} html[data-theme="dark"] .take b{color:#a9c9d3}
+.partial{margin-top:8px;font-size:12.5px;font-weight:700;color:var(--bad)}
+.ok{color:var(--ok)} .bad{color:var(--bad)} .mut{color:var(--ink-faint)}
+
+/* Tables: desktop table, phone rows */
+table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;font-size:12.5px}
+th{font-size:10.5px;font-weight:700;color:var(--ink-soft);text-align:right;padding:7px 6px;white-space:nowrap;border-bottom:1px solid var(--hairline)}
+td{text-align:right;padding:8px 6px;white-space:nowrap;border-bottom:1px solid var(--hairline)}
+th:first-child,td:first-child{text-align:left}
+tr.tot td{font-weight:700;border-top:1px solid var(--ink-faint)}
+tr.bpr td{background:var(--row-bp)}
+.rows{display:none}
+.r{padding:11px 2px;border-bottom:1px solid var(--hairline)}
+.r:last-child{border-bottom:0}
+.r.tot{font-weight:700} .r.bpr{background:var(--row-bp);border-radius:10px;padding:11px 8px;margin:0 -6px}
+.r-top{display:flex;justify-content:space-between;align-items:baseline;gap:10px;font-size:14px}
+.r-top b{font-weight:700} .r.tot .r-top span:first-child{font-weight:700}
+.r-sub{display:flex;flex-wrap:wrap;gap:4px 14px;margin-top:4px;font-size:12px;color:var(--ink-soft);font-variant-numeric:tabular-nums;font-weight:500}
+.r-sub span i{font-style:normal;color:var(--ink-faint);margin-right:4px}
+@media (max-width:640px){ .tbl{display:none} .rows{display:block} }
+
+/* Executive sheet */
+.sheet{padding:28px 28px 22px}
+.sh-title{font-family:var(--serif);font-weight:600;font-size:26px;margin:0}
+.sh-sub{font-size:13px;color:var(--ink-soft);margin:4px 0 16px}
+.sh-rule{height:2px;border-radius:2px;background:linear-gradient(90deg,var(--mb-green),var(--mb-sage),var(--mb-teal),var(--mb-coral),var(--mb-amber));margin-bottom:18px}
+.sh-tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:6px}
+.sh-tiles.six{grid-template-columns:repeat(4,1fr)}
+.over{color:var(--bad);font-weight:700}
+.kept{color:var(--ok);font-weight:700}
+.lead{margin:2px 0 18px}
+.lead-k{font-size:12px;color:var(--ink-soft);font-weight:500}
+.lead-big{font-family:var(--serif);font-size:34px;font-weight:600;margin:2px 0 10px;font-variant-numeric:lining-nums tabular-nums}
+.lead-s{font-size:12px;color:var(--ink-soft);margin:-6px 0 0}
+.bars{display:flex;flex-direction:column;gap:7px}
+.bar{display:grid;grid-template-columns:110px 1fr 170px;align-items:center;gap:10px;font-size:12.5px;font-variant-numeric:tabular-nums}
+.bt{position:relative;height:12px}
+.bz{position:absolute;left:50%;top:-3px;bottom:-3px;width:1px;background:var(--ink-faint)}
+.bf{position:absolute;top:0;height:12px;border-radius:6px}
+.b-kept{background:linear-gradient(90deg,rgba(153,201,97,.55),#6fa83a)}
+.b-over{background:linear-gradient(90deg,#e0604c,rgba(252,130,109,.6))}
+.bv{text-align:right;white-space:nowrap}
+.pp{font-family:var(--sans);font-size:.5em;font-weight:700;margin-left:10px;padding:3px 8px;border-radius:999px;background:currentColor;vertical-align:middle}
+.pp{background:none;box-shadow:inset 0 0 0 1.5px currentColor}
+.bv .pp{font-size:.92em;padding:1px 6px;margin-left:6px}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:2px 0 6px}
+.lever{font-size:13px;margin:4px 0 16px;line-height:1.5} .lever b{color:var(--mb-teal)} html[data-theme="dark"] .lever b{color:#a9c9d3}
+@media (max-width:640px){.bars{gap:10px}.bar{grid-template-columns:1fr auto;row-gap:5px;font-size:12px}.bar .bn{grid-row:1}.bar .bv{grid-row:1}.bar .bt{grid-column:1/-1;grid-row:2;height:9px}.bar .bf{height:9px}.bv .pp{padding:0 5px;margin-left:5px}.lead-big{font-size:28px}}
+.sh-tile .v.ok{color:inherit}
+.sh-tile{padding:11px 12px;border-radius:16px;background:rgba(255,255,255,.35);box-shadow:inset 0 0 0 1px rgba(255,255,255,.6)}
+html[data-theme="dark"] .sh-tile{background:rgba(255,255,255,.05);box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)}
+.sh-tile .k{font-size:11px;color:var(--ink-soft)} .sh-tile .v{font-family:var(--serif);font-size:22px;font-weight:600;margin:3px 0 1px} .sh-tile .s{font-size:11px;color:var(--ink-soft)}
+.sheet h3{font-family:var(--serif);font-weight:600;font-size:17px;margin:20px 0 6px}
+.sheet table{font-size:11.5px} .sheet th{font-size:10px;padding:6px 4px} .sheet td{padding:6px 4px}
+.foot{font-size:11px;color:var(--ink-soft);line-height:1.5;margin-top:8px}
+.pts{list-style:none;margin:0;padding:0}
+.pts li{position:relative;padding-left:16px;margin:0 0 8px;font-size:13px;line-height:1.5}
+.pts li::before{content:'';position:absolute;left:1px;top:.6em;width:6px;height:6px;border-radius:50%;background:var(--mb-green)}
+.pts b{color:var(--mb-teal)} html[data-theme="dark"] .pts b{color:#a9c9d3}
+.open{font-size:12.5px;color:var(--ink-soft);line-height:1.5}
+.src{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:10.5px;color:var(--ink-faint);margin-top:18px}
+@media (max-width:640px){ .sheet{padding:20px 16px} .sh-tiles,.sh-tiles.six{grid-template-columns:repeat(2,1fr)} }
+
+/* Trends */
+.seg{display:flex;flex-wrap:wrap;gap:4px;padding:4px;border-radius:16px;background:linear-gradient(170deg,rgba(255,255,255,.5),rgba(255,255,255,.18));box-shadow:var(--glass-edge)}
+html[data-theme="dark"] .seg{background:rgba(255,255,255,.05)}
+.seg button{border:0;background:transparent;min-height:40px;padding:0 12px;border-radius:10px;font-weight:600;font-size:12.5px;color:var(--ink-soft);cursor:pointer;transition:background .42s var(--ease-liquid),transform .16s}
+.seg button:active{transform:scale(.94)}
+.seg button[aria-pressed="true"]{background:rgba(255,255,255,.88);color:var(--mb-teal);box-shadow:inset 0 1px 1px #fff,0 3px 10px rgba(40,70,84,.12)}
+html[data-theme="dark"] .seg button[aria-pressed="true"]{background:rgba(169,201,211,.18);color:#d6ecf2;box-shadow:inset 0 1px 1px rgba(255,255,255,.15)}
+.ctrl{display:flex;flex-direction:column;gap:10px;padding:14px;border-radius:22px;margin-bottom:12px}
+.ctrl .rowc{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.ctrl label{font-size:12px;color:var(--ink-soft);display:flex;align-items:center;gap:6px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;margin:8px 0 12px}
+.stat{padding:10px 12px;border-radius:16px;background:rgba(255,255,255,.3);box-shadow:inset 0 0 0 1px rgba(255,255,255,.55)}
+html[data-theme="dark"] .stat{background:rgba(255,255,255,.04);box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)}
+.stat .k{font-size:11px;color:var(--ink-soft)} .stat .v{font-size:19px;font-weight:700;margin-top:2px;font-variant-numeric:tabular-nums}
+.ctitle{font-family:var(--serif);font-weight:600;font-size:20px;margin:0}
+#chart{position:relative;min-height:260px}
+#chart svg{display:block;width:100%;height:auto;overflow:visible}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12px;color:var(--ink-soft);margin-top:6px}
+.legend span{display:inline-flex;align-items:center;gap:7px} .legend i{width:18px;height:3px;border-radius:2px;display:inline-block}
+.tip{position:absolute;top:4px;pointer-events:none;padding:8px 11px;border-radius:12px;font-size:12px;white-space:nowrap;font-variant-numeric:tabular-nums;background:rgba(255,255,255,.94);color:#1c303a;box-shadow:0 10px 26px rgba(40,70,84,.2)}
+html[data-theme="dark"] .tip{background:rgba(16,34,41,.96);color:#eef6f8}
+.tip .h{font-weight:700;margin-bottom:2px}
+.empty{padding:40px 10px;text-align:center;color:var(--ink-soft);font-size:13px}
+
+/* Pages and entrance */
+.page{display:none}
+.page.on{display:block}
+.page.on .rise{animation:rise .6s var(--ease-out) both}
+.page.on .rise:nth-child(2){animation-delay:.09s} .page.on .rise:nth-child(3){animation-delay:.18s} .page.on .rise:nth-child(4){animation-delay:.27s}
+.page.on .rise:nth-child(5){animation-delay:.36s} .page.on .rise:nth-child(6){animation-delay:.45s} .page.on .rise:nth-child(n+7){animation-delay:.54s}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+/* Dock */
+.dock{position:fixed;left:50%;bottom:calc(12px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:40;display:flex;gap:2px;padding:6px;border-radius:999px;
+  background:linear-gradient(170deg,rgba(255,255,255,.66),rgba(255,255,255,.30));backdrop-filter:var(--glass-blur-lg);-webkit-backdrop-filter:var(--glass-blur-lg);box-shadow:var(--glass-edge),0 14px 34px rgba(40,70,84,.2)}
+html[data-theme="dark"] .dock{background:linear-gradient(170deg,rgba(255,255,255,.10),rgba(255,255,255,.03)),rgba(9,20,25,.7);box-shadow:var(--glass-edge),0 14px 34px rgba(0,0,0,.45)}
+.dock::after{content:'';position:absolute;inset:0;border-radius:inherit;padding:1.3px;background:var(--lens-rim);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
+.dock-pill{position:absolute;top:6px;bottom:6px;left:0;width:0;border-radius:999px;background:rgba(var(--tint),.22);box-shadow:inset 0 1px 1px rgba(255,255,255,.7);transition:transform .5s var(--ease-liquid),width .5s var(--ease-liquid),background .3s}
+html[data-theme="dark"] .dock-pill{background:rgba(var(--tint),.28);box-shadow:inset 0 1px 1px rgba(255,255,255,.15)}
+.di{position:relative;z-index:1;border:0;background:none;cursor:pointer;width:84px;min-height:52px;border-radius:999px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:var(--ink-soft);font-size:10.5px;font-weight:700;transition:width .45s var(--ease-liquid),opacity .3s,transform .16s}
+.di svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.di:active{transform:scale(.9)}
+.di[aria-current="page"]{color:var(--dock-c)}
+.dock.min .di:not([aria-current="page"]){width:0;opacity:0;overflow:hidden;pointer-events:none}
+.di[data-c="teal"]{--dock-c:#3c5c68} .di[data-c="yellow"]{--dock-c:#9a7a08} html[data-theme="dark"] .di[data-c="yellow"]{--dock-c:#ffde5c} .di[data-c="green"]{--dock-c:#5a8a2a} .di[data-c="sage"]{--dock-c:#4f8a7f}
+html[data-theme="dark"] .di[data-c="teal"]{--dock-c:#a9c9d3} html[data-theme="dark"] .di[data-c="green"]{--dock-c:#b9e08a} html[data-theme="dark"] .di[data-c="sage"]{--dock-c:#9bc4bc}
+
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition-duration:.01ms!important}}
+
+/* Print: the executive page only, printer friendly, always light */
+@media print{
+  @page{size:letter portrait;margin:.5in}
+  html,body{background:#fff!important;width:auto!important;color:#222!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  :root,html[data-theme="dark"]{--ink:#222;--ink-soft:#555;--ink-faint:#777;--hairline:#c4c4c4;--ok:#1b5e20;--bad:#b71c1c;--row-bp:transparent;--chart-a:#4c7f1f;--chart-b:#3c5c68;--chart-grid:#ddd;--chart-fill:rgba(153,201,97,.25);--surface-ring:#fff;color-scheme:light}
+  .canvas,.hdr,.dock,.hero,.toolbar,.page:not(.on),.ctrl,.tip{display:none!important}
+  .page.on{display:block!important}
+  .ph{display:block;font-family:var(--serif);font-size:14pt;font-weight:600;color:#222;border-bottom:1.5px solid #222;padding-bottom:6px;margin-bottom:12px}
+  #p-exec.on~.ph,#p-mtd.on~.ph{display:none}
+  .glass{background:#fff!important;box-shadow:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;border-radius:6px!important}
+  .glass::before,.glass::after{display:none!important}
+  #p-dash .card,#p-trends .card{border:1px solid #bbb;padding:10px 12px!important;break-inside:avoid;margin-bottom:10px}
+  #p-dash .tile{border:1px solid #999;padding:8px 10px!important}
+  #p-dash .tiles{grid-template-columns:repeat(3,1fr)!important;gap:6px}
+  #p-dash .tile .v{font-size:15pt} .label{margin:12px 0 6px;color:#444}
+  .label::before{box-shadow:none}
+  .label{break-after:avoid;page-break-after:avoid}
+  .tbl{display:block!important} .rows{display:none!important}
+  #p-dash table{font-size:8pt} #p-dash td,#p-dash th{padding:4px 4px}
+  .stat{background:#fff!important;box-shadow:none!important;border:1px solid #bbb}
+  .take b{color:#222!important}
+  main{max-width:none;padding:0}
+  #p-exec.on,#p-mtd.on{display:block!important}
+  .page.on .rise{animation:none!important}
+  .sheet{background:#fff!important;box-shadow:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;padding:0;border-radius:0;color:#222}
+  .sheet::before,.sheet::after{display:none!important}
+  .sh-title{font-size:22pt;color:#222} .sh-sub,.foot,.open,.src{color:#444!important}
+  .sh-rule{height:1.5px;background:#222}
+  .sh-tiles,.sh-tiles.six{grid-template-columns:repeat(4,minmax(0,1fr))!important}
+  .over{color:#b71c1c!important;font-weight:700} .kept{color:#1b5e20!important;font-weight:700}
+  .b-kept{background:#555!important} .b-over{background:#b71c1c!important} .bz{background:#222!important}
+  .lead-big{font-size:18pt;color:#222;margin:0 0 6px} .lever b{color:#222!important}
+  .lead{margin:0 0 10px} .bars{gap:3px} .bar{font-size:8pt;grid-template-columns:100px 1fr 150px} .bt,.bf{height:8px}
+  .sh-tile .v{font-size:14pt!important;margin:1px 0} .sh-tile{padding:6px 9px!important} .sh-tiles{gap:6px!important}
+  .sh-sub{margin:2px 0 10px} .sh-rule{margin-bottom:12px} .sheet h3{margin:10px 0 4px!important;font-size:11pt!important}
+  .foot{margin-top:4px;font-size:7.5pt} .pts li{font-size:8.8pt!important;margin-bottom:3px!important;line-height:1.4} .src{margin-top:10px}
+  .sh-tile{background:#fff!important;box-shadow:none!important;border:1px solid #999;border-radius:4px;padding:8px 10px}
+  .sh-tile .v{font-size:17pt;color:#222} .sh-tile .k,.sh-tile .s{color:#444}
+  .sheet .tbl{display:block!important} .sheet .rows{display:none!important}
+  .sheet table{font-size:8pt;color:#222} .sheet td,.sheet th{padding:4px 3px;border-color:#bbb} .sheet th{color:#444;border-bottom:1px solid #222}
+  .sheet tr.bpr td{background:#fff!important} .sheet tr.tot td{border-top:1px solid #222}
+  .sheet h3{font-size:12pt;color:#222;margin:14px 0 6px}
+  .pts li{font-size:9.5pt;color:#222;margin-bottom:5px} .pts li::before{background:#222;width:5px;height:5px} .pts b{color:#222!important}
+  .ok{color:#1b5e20!important} .bad{color:#b71c1c!important} .mut{color:#666!important}
+}
+</style>
+</head>
+<body>
+<div class="canvas" aria-hidden="true"><div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div><div class="orb o4"></div><div class="orb o5"></div><div class="grain"></div></div>
+
+<header class="hdr">
+  <div class="hdr-in">
+    <a class="pill" id="hub" href="https://morningbellebrunch.github.io/manager-hub/" aria-label="Back to the Manager Hub">
+      <span class="pill-face"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>Hub</span>
+    </a>
+    <div class="hdr-title" id="htitle" aria-hidden="true">Weekly Performance</div>
+    <button class="pill" id="theme" aria-label="Switch light and dark">
+      <span class="pill-face sw-face"><span class="knob"></span>
+        <svg viewBox="0 0 24 24" aria-hidden="true" fill="none"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <svg viewBox="0 0 24 24" aria-hidden="true" fill="none"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
+      </span>
+    </button>
+    <div class="rainbow"></div>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <h1>The week in <em>numbers</em></h1>
+    <p id="herosub">Morning Belle and Blue Porch, every restaurant, every week.</p>
+  </section>
+
+  <div class="toolbar" id="toolbar">
+    <select class="sel" id="rest" aria-label="Restaurant"></select>
+    <select class="sel" id="week" aria-label="Week"></select>
+    <span class="sp"></span>
+    <button class="btn" id="pdf">Export PDF</button>
+  </div>
+
+  <div class="ph" id="ph" aria-hidden="true"></div>
+  <section class="page on" id="p-exec" aria-label="Executive summary">
+    <article class="sheet glass t-teal rise" id="sheet"></article>
+  </section>
+
+  <section class="page" id="p-mtd" aria-label="Month to date">
+    <article class="sheet glass t-yellow rise" id="mtd"></article>
+  </section>
+
+  <section class="page" id="p-dash" aria-label="Dashboard"></section>
+
+  <section class="page" id="p-trends" aria-label="Trends">
+    <div class="ctrl glass t-sage rise">
+      <div class="seg" id="metric" role="group" aria-label="Metric">
+        <button data-m="sales" aria-pressed="true">Sales</button>
+        <button data-m="cash" aria-pressed="false">Contribution</button>
+        <button data-m="prime" aria-pressed="false">Prime</button>
+        <button data-m="labor" aria-pressed="false">Labor</button>
+        <button data-m="cogs" aria-pressed="false">COGS</button>
+      </div>
+      <div class="seg" id="range" role="group" aria-label="Timeframe">
+        <button data-r="period" aria-pressed="false">Period</button>
+        <button data-r="4" aria-pressed="false">4 wks</button>
+        <button data-r="8" aria-pressed="false">8 wks</button>
+        <button data-r="13" aria-pressed="false">13 wks</button>
+        <button data-r="ytd" aria-pressed="false">YTD</button>
+        <button data-r="all" aria-pressed="true">All</button>
+        <button data-r="custom" aria-pressed="false">Custom</button>
+      </div>
+      <div class="rowc">
+        <label id="lfrom" hidden>From <select class="sel" id="from"></select></label>
+        <label id="lto" hidden>To <select class="sel" id="to"></select></label>
+        <select class="sel" id="scope" aria-label="Restaurant"></select>
+      </div>
+    </div>
+    <div class="card glass t-sage rise">
+      <h2 class="ctitle" id="ctitle"></h2>
+      <p class="note" id="cnote"></p>
+      <div class="stats" id="cstats"></div>
+      <div id="chart"></div>
+      <div class="legend" id="clegend"></div>
+    </div>
+  </section>
+</main>
+
+<nav class="dock t-teal" id="dock" aria-label="Pages">
+  <span class="dock-pill" id="dpill"></span>
+  <button class="di" data-p="exec" data-c="teal" data-tint="60,92,104" aria-current="page"><svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2.5"/><path d="M9 8h6M9 12h6M9 16h4"/></svg>Summary</button>
+  <button class="di" data-p="mtd" data-c="yellow" data-tint="255,222,92"><svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/><path d="M8 14h3M8 17h6"/></svg>Month</button>
+  <button class="di" data-p="dash" data-c="green" data-tint="153,201,97"><svg viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="7" height="7" rx="2"/><rect x="13.5" y="3.5" width="7" height="7" rx="2"/><rect x="3.5" y="13.5" width="7" height="7" rx="2"/><rect x="13.5" y="13.5" width="7" height="7" rx="2"/></svg>Dashboard</button>
+  <button class="di" data-p="trends" data-c="sage" data-tint="155,196,188"><svg viewBox="0 0 24 24"><path d="M3.5 19.5h17"/><path d="M5 15l4.5-4.5 3.5 3 6-6.5"/><path d="M15 7h4v4"/></svg>Trends</button>
+</nav>
+
+<script type="application/json" id="mb-data">{"weeks":{"2026101":{"label":"P10 WK1 26","dates":"Sep 28 to Oct 4, 2026","period":"P10 26"},"2026102":{"label":"P10 WK2 26","dates":"Oct 5 to 11, 2026","period":"P10 26","takeaways":[["Costs held, sales did not.","Morning Belle beat its prime target by 1.3%, but sales were 8.9% below last year. The lost volume cost roughly four times what cost control saved. Traffic is the lever now."],["East Beltline is the model week.","Only restaurant up vs PY (+1.1%), with labor 3.0% and COGS 1.2% under target. $16,400 in cash contribution."],["Blue Porch needs a plan.","Sales down 15.2% vs PY for a second straight week, labor 3.0% over target, and prime at 66.2%, above the 63% benchmark."],["Bridge St is structurally tight.","Over its prime target two weeks running, driven by labor. At $19,400 a week, manager salary alone is 8.4% of sales."],["Breton dropped 22.8% vs PY.","Labor flexed down, but COGS ran 0.85% over as volume fell. Prep pars need to follow traffic."]],"open":"60 day reviews and loyalty retention for WK2, ops labor, and WK1 catering."}},"rows":[{"id":"2026101-1001","week":"P10 WK1 26","week_seq":2026101,"rest":"1001","name":"East Beltline","concept":"Morning Belle","sales":33416,"py_sales":33322,"dine_in_ppa":null,"lbw_pct":null,"cater_events":null,"to_go":null,"ops_labor":0.236,"act_labor":0.253,"labor_target":0.2235,"cogs_act":0.22,"cogs_tgt":0.228,"one_two_star":0.0,"star_avg":4.8,"toast_pct":0.98,"gm_mbv":null,"ar_mbv":null,"loyalty_ret":0.07,"nonloyalty_ret":0.04,"guest_count":1893,"manager_usd":2557,"total_target":0.3,"addon_pct":0.04,"disc_total":null,"disc_errors":null,"disc_hospitality":null,"disc_team":null,"disc_promos":null},{"id":"2026101-1002","week":"P10 WK1 26","week_seq":2026101,"rest":"1002","name":"Bridge St","concept":"Morning Belle","sales":19191,"py_sales":19832,"dine_in_ppa":null,"lbw_pct":null,"cater_events":null,"to_go":null,"ops_labor":0.234,"act_labor":0.234,"labor_target":0.1949,"cogs_act":0.239,"cogs_tgt":0.226,"one_two_star":0.068,"star_avg":4.6,"toast_pct":0.97,"gm_mbv":null,"ar_mbv":null,"loyalty_ret":0.09,"nonloyalty_ret":0.04,"guest_count":1033,"manager_usd":1634,"total_target":0.28,"addon_pct":0.04,"disc_total":null,"disc_errors":null,"disc_hospitality":null,"disc_team":null,"disc_promos":null},{"id":"2026101-1003","week":"P10 WK1 26","week_seq":2026101,"rest":"1003","name":"Breton","concept":"Morning Belle","sales":24578,"py_sales":22685,"dine_in_ppa":null,"lbw_pct":null,"cater_events":null,"to_go":null,"ops_labor":0.195,"act_labor":0.195,"labor_target":0.2291,"cogs_act":0.237,"cogs_tgt":0.233,"one_two_star":0.043,"star_avg":4.7,"toast_pct":0.98,"gm_mbv":null,"ar_mbv":null,"loyalty_ret":0.1,"nonloyalty_ret":0.05,"guest_count":1367,"manager_usd":1250,"total_target":0.28,"addon_pct":0.04,"disc_total":null,"disc_errors":null,"disc_hospitality":null,"disc_team":null,"disc_promos":null},{"id":"2026101-1004","week":"P10 WK1 26","week_seq":2026101,"rest":"1004","name":"Standale","concept":"Morning Belle","sales":21590,"py_sales":26497,"dine_in_ppa":null,"lbw_pct":null,"cater_events":null,"to_go":null,"ops_labor":0.191,"act_labor":0.203,"labor_target":0.2195,"cogs_act":0.214,"cogs_tgt":0.223,"one_two_star":0.018,"star_avg":4.8,"toast_pct":0.98,"gm_mbv":null,"ar_mbv":null,"loyalty_ret":0.11,"nonloyalty_ret":0.05,"guest_count":1147,"manager_usd":1307,"total_target":0.28,"addon_pct":0.04,"disc_total":null,"disc_errors":null,"disc_hospitality":null,"disc_team":null,"disc_promos":null},{"id":"2026101-1503","week":"P10 WK1 26","week_seq":2026101,"rest":"1503","name":"Blue Porch","concept":"Blue Porch","sales":24300,"py_sales":29671,"dine_in_ppa":null,"lbw_pct":null,"cater_events":null,"to_go":null,"ops_labor":0.239,"act_labor":0.245,"labor_target":0.2286,"cogs_act":null,"cogs_tgt":0.28,"one_two_star":0.062,"star_avg":4.5,"toast_pct":0.98,"gm_mbv":null,"ar_mbv":null,"loyalty_ret":0.21,"nonloyalty_ret":0.09,"guest_count":2111,"manager_usd":1249,"total_target":0.28,"addon_pct":0.04,"disc_total":null,"disc_errors":null,"disc_hospitality":null,"disc_team":null,"disc_promos":null},{"id":"2026102-1001","week":"P10 WK2 26","week_seq":2026102,"rest":"1001","name":"East Beltline","concept":"Morning Belle","sales":34720.59,"py_sales":34339.91,"dine_in_ppa":null,"lbw_pct":null,"cater_events":0.0,"to_go":null,"ops_labor":null,"act_labor":0.1962,"labor_target":0.2264,"cogs_act":0.2174,"cogs_tgt":0.2295,"one_two_star":null,"star_avg":null,"toast_pct":null,"gm_mbv":null,"ar_mbv":null,"loyalty_ret":null,"nonloyalty_ret":null,"guest_count":1892,"manager_usd":2557,"total_target":0.3,"addon_pct":0.04,"disc_total":675.8,"disc_errors":112.7,"disc_hospitality":16.4,"disc_team":155.96,"disc_promos":390.74},{"id":"2026102-1002","week":"P10 WK2 26","week_seq":2026102,"rest":"1002","name":"Bridge St","concept":"Morning Belle","sales":19391.96,"py_sales":20893.16,"dine_in_ppa":null,"lbw_pct":null,"cater_events":180.39,"to_go":null,"ops_labor":null,"act_labor":0.2064,"labor_target":0.1957,"cogs_act":0.2528,"cogs_tgt":0.253,"one_two_star":null,"star_avg":null,"toast_pct":null,"gm_mbv":null,"ar_mbv":null,"loyalty_ret":null,"nonloyalty_ret":null,"guest_count":967,"manager_usd":1634,"total_target":0.28,"addon_pct":0.04,"disc_total":404.5,"disc_errors":82.3,"disc_hospitality":59.98,"disc_team":115.54,"disc_promos":146.68},{"id":"2026102-1003","week":"P10 WK2 26","week_seq":2026102,"rest":"1003","name":"Breton","concept":"Morning Belle","sales":20151.06,"py_sales":26106.48,"dine_in_ppa":null,"lbw_pct":null,"cater_events":0.0,"to_go":null,"ops_labor":null,"act_labor":0.2129,"labor_target":0.218,"cogs_act":0.2443,"cogs_tgt":0.2358,"one_two_star":null,"star_avg":null,"toast_pct":null,"gm_mbv":null,"ar_mbv":null,"loyalty_ret":null,"nonloyalty_ret":null,"guest_count":1158,"manager_usd":1250,"total_target":0.28,"addon_pct":0.04,"disc_total":1205.16,"disc_errors":411.95,"disc_hospitality":75.08,"disc_team":170.04,"disc_promos":548.09},{"id":"2026102-1004","week":"P10 WK2 26","week_seq":2026102,"rest":"1004","name":"Standale","concept":"Morning Belle","sales":20731.05,"py_sales":22930.83,"dine_in_ppa":null,"lbw_pct":null,"cater_events":0.0,"to_go":null,"ops_labor":null,"act_labor":0.2227,"labor_target":0.217,"cogs_act":0.2016,"cogs_tgt":0.2108,"one_two_star":null,"star_avg":null,"toast_pct":null,"gm_mbv":null,"ar_mbv":null,"loyalty_ret":null,"nonloyalty_ret":null,"guest_count":1118,"manager_usd":1307,"total_target":0.28,"addon_pct":0.04,"disc_total":918.12,"disc_errors":92.9,"disc_hospitality":73.68,"disc_team":330.25,"disc_promos":421.29},{"id":"2026102-1503","week":"P10 WK2 26","week_seq":2026102,"rest":"1503","name":"Blue Porch","concept":"Blue Porch","sales":24074.38,"py_sales":28373.09,"dine_in_ppa":null,"lbw_pct":null,"cater_events":0.0,"to_go":null,"ops_labor":null,"act_labor":0.258,"labor_target":0.2281,"cogs_act":0.312,"cogs_tgt":0.28,"one_two_star":null,"star_avg":null,"toast_pct":null,"gm_mbv":null,"ar_mbv":null,"loyalty_ret":null,"nonloyalty_ret":null,"guest_count":1036,"manager_usd":1249,"total_target":0.28,"addon_pct":0.04,"disc_total":525.4,"disc_errors":0,"disc_hospitality":20.0,"disc_team":84.6,"disc_promos":420.8}],"mbReviews":[{"week":"P10 WK1 26","week_seq":2026101,"one_two_star":0.031,"star_avg":4.7,"toast_pct":0.98}],"periods":{"P10 26":{"2026102":[["Sales are the story.","Morning Belle is 6.2% behind last year for the period, about $12,800, and all five restaurants together are 8.5% behind, about $22,500."],["Costs are on plan.","Morning Belle prime is 55.3% against a 55.9% target, with labor and COGS both at or under target."],["East Beltline carries the period.","The only restaurant ahead of last year (+0.7%), and $30,200 of Morning Belle's $86,700 cash contribution."],["Blue Porch is the soft spot.","Down 16.7% vs last year with prime at 65.5% against a 60% target, about $2,700 over for the period, and the only restaurant over the 63% benchmark."]]}}}</script>
+<script>
+(function(){
+'use strict';
+var DATA = JSON.parse(document.getElementById('mb-data').textContent);
+var ROWS = DATA.rows;
+var WEEKS = Object.keys(DATA.weeks).map(Number).sort(function(a,b){return a-b;});
+var $ = function(s){return document.querySelector(s);};
+var num = function(x){return (x===null||x===undefined||x==='')?null:Number(x);};
+
+/* Formatting */
+var usd = function(v){return v==null?'n/a':'$'+Math.round(v).toLocaleString('en-US');};
+var pct = function(v,d){return v==null?'n/a':(v*100).toFixed(d==null?1:d)+'%';};
+var sgn = function(v,d){if(v==null)return 'n/a';var x=(v*100).toFixed(d==null?1:d);if(Number(x)===0)return (0).toFixed(d==null?1:d)+'%';return (v>0?'+':'\u2212')+Math.abs(x).toFixed(d==null?1:d)+'%';};
+var ptsf = function(a,t){if(a==null||t==null)return {t:'n/a',c:'mut'};var v=Math.round((a-t)*1000)/10;if(v===0)return {t:'0.0%',c:''};return {t:(v>0?'+':'\u2212')+Math.abs(v).toFixed(1)+'%',c:v>0?'bad':'ok'};};
+var signCls = function(v){return v==null?'mut':(v>=0?'ok':'bad');};
+var esc = function(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});};
+
+/* Core math */
+function prevSales(r){
+  var best=null;
+  ROWS.forEach(function(q){ if(q.rest===r.rest && q.week_seq<r.week_seq && num(q.sales)!==null && (!best||q.week_seq>best.week_seq)) best=q; });
+  return best?num(best.sales):null;
+}
+function agg(rows){
+  var o={n:0,restaurants:rows.length,sales:0,pyS:0,py:0,wS:0,wP:0,labS:0,lab:0,labT:0,hS:0,hr:0,hT:0,cS:0,cogs:0,cTS:0,cT:0,cMissT:0,pS:0,prime:0,pT:0,pMissT:0,cash:0};
+  rows.forEach(function(r){
+    var s=num(r.sales); if(s===null) return;
+    o.n++; o.sales+=s;
+    var py=num(r.py_sales); if(py){o.pyS+=s;o.py+=py;}
+    var pw=prevSales(r); if(pw){o.wS+=s;o.wP+=pw;}
+    var a=num(r.act_labor), m=num(r.manager_usd), ao=num(r.addon_pct)||0, tt=num(r.total_target), ht=num(r.labor_target);
+    if(a!==null && ht!==null){o.hS+=s;o.hr+=s*a;o.hT+=s*ht;}
+    var L=null, LT=null;
+    if(a!==null && m!==null){L=s*(a+ao)+m; if(tt!==null) LT=s*(tt+ao); o.labS+=s; o.lab+=L; o.labT+=LT||0;}
+    var c=num(r.cogs_act), ct=num(r.cogs_tgt);
+    if(c!==null){o.cS+=s;o.cogs+=s*c; if(ct!==null){o.cTS+=s;o.cT+=s*ct;} else o.cMissT++;}
+    if(L!==null && c!==null){o.pS+=s;o.prime+=L+s*c;o.cash+=s-(L+s*c); if(LT!==null&&ct!==null) o.pT+=LT+s*ct; else o.pMissT++;}
+  });
+  return o;
+}
+function view(o){
+  return {
+    n:o.n, restaurants:o.restaurants, sales:o.n?o.sales:null,
+    py:o.py||null, vsPY:o.py?o.pyS/o.py-1:null, vsWk:o.wP?o.wS/o.wP-1:null,
+    hourly:o.hS?o.hr/o.hS:null, hourlyT:o.hS?o.hT/o.hS:null,
+    labor:o.labS?o.lab/o.labS:null, laborT:o.labS?o.labT/o.labS:null,
+    cogs:o.cS?o.cogs/o.cS:null, cogsT:(o.cS&&!o.cMissT)?o.cT/o.cTS:null,
+    prime:o.pS?o.prime/o.pS:null, primeT:(o.pS&&!o.pMissT)?o.pT/o.pS:null,
+    primeVarUsd:(o.pS&&!o.pMissT)?o.prime-o.pT:null,
+    cash:o.pS?o.cash:null, cashT:(o.pS&&!o.pMissT)?o.pS-o.pT:null
+  };
+}
+var weekRows = function(seq){return ROWS.filter(function(r){return r.week_seq===seq;}).sort(function(a,b){return a.rest.localeCompare(b.rest);});};
+var isMB = function(r){return r.concept==='Morning Belle';};
+
+/* Auto takeaways when none are written for a week */
+function autoTake(seq){
+  var rows=weekRows(seq), pts=[];
+  var mbv=view(agg(rows.filter(isMB)));
+  if(mbv.vsPY!=null) pts.push(['Morning Belle sales '+(mbv.vsPY>=0?'grew':'fell')+' '+Math.abs(mbv.vsPY*100).toFixed(1)+'% vs PY.', usd(mbv.sales)+' for the week across '+mbv.n+' restaurants.']);
+  var ranked=rows.filter(isMB).map(function(r){return {r:r,v:view(agg([r]))};}).filter(function(x){return x.v.vsPY!=null;}).sort(function(a,b){return b.v.vsPY-a.v.vsPY;});
+  if(ranked.length>1) pts.push([ranked[0].r.name+' led, '+ranked[ranked.length-1].r.name+' trailed.', sgn(ranked[0].v.vsPY)+' and '+sgn(ranked[ranked.length-1].v.vsPY)+' vs PY.']);
+  var over=rows.map(function(r){return {r:r,v:view(agg([r]))};}).filter(function(x){return x.v.prime!=null&&x.v.primeT!=null&&x.v.prime>x.v.primeT;});
+  if(over.length) pts.push(['Over prime target:', over.map(function(x){return x.r.name+' ('+ptsf(x.v.prime,x.v.primeT).t+')';}).join(', ')+'.']);
+  return pts;
+}
+
+/* Restaurant lines for tables */
+function lines(seq){
+  var rows=weekRows(seq), mb=rows.filter(isMB), bp=rows.filter(function(r){return !isMB(r);});
+  var out=mb.map(function(r){return {name:r.name,rest:r.rest,v:view(agg([r])),kind:'r',row:r};});
+  out.push({name:'Morning Belle total',v:view(agg(mb)),kind:'tot'});
+  bp.forEach(function(r){out.push({name:r.name,rest:r.rest,v:view(agg([r])),kind:'bp',row:r});});
+  out.push({name:'All restaurants',v:view(agg(rows)),kind:'tot'});
+  return out;
+}
+function scopeRows(seq){
+  var rows=weekRows(seq);
+  if(state.scope==='ALL') return rows;
+  if(state.scope==='MB') return rows.filter(isMB);
+  return rows.filter(function(r){return r.rest===state.scope;});
+}
+function rangeWeeks(){
+  var last=WEEKS[WEEKS.length-1], r=state.range;
+  if(r==='all') return WEEKS.slice();
+  if(r==='custom'){var a=Math.min(state.from,state.to), b=Math.max(state.from,state.to); return WEEKS.filter(function(w){return w>=a&&w<=b;});}
+  if(r==='period'){var p=DATA.weeks[last].period; return WEEKS.filter(function(w){return DATA.weeks[w].period===p;});}
+  if(r==='ytd'){var y=Math.floor(last/1000); return WEEKS.filter(function(w){return Math.floor(w/1000)===y;});}
+  return WEEKS.slice(-Number(r));
+}
+function series(){
+  var ws=rangeWeeks(), cum={sales:0,pyS:0,py:0,labS:0,lab:0,labT:0,cS:0,cogs:0,cTS:0,cT:0,pS:0,prime:0,pT:0,cash:0,cashT:0,missT:false}, pts=[];
+  ws.forEach(function(w){
+    var o=agg(scopeRows(w));
+    cum.sales+=o.sales; cum.pyS+=o.pyS; cum.py+=o.py; cum.labS+=o.labS; cum.lab+=o.lab; cum.labT+=o.labT;
+    cum.cS+=o.cS; cum.cogs+=o.cogs; cum.cTS+=o.cTS; cum.cT+=o.cT; cum.pS+=o.pS; cum.prime+=o.prime; cum.pT+=o.pT; cum.cash+=o.cash;
+    if(o.pMissT||o.cMissT) cum.missT=true;
+    cum.cashT+=o.pS-o.pT;
+    pts.push({w:w,label:DATA.weeks[w].label,
+      sales:cum.sales, py:cum.py?cum.py*(cum.sales?1:0):null, pyS:cum.pyS,
+      cash:cum.pS?cum.cash:null, cashT:(cum.pS&&!cum.missT)?cum.cashT:null,
+      prime:cum.pS?cum.prime/cum.pS:null, primeT:(cum.pS&&!cum.missT)?cum.pT/cum.pS:null,
+      labor:cum.labS?cum.lab/cum.labS:null, laborT:cum.labS?cum.labT/cum.labS:null,
+      cogs:cum.cS?cum.cogs/cum.cS:null, cogsT:(cum.cTS&&cum.cTS===cum.cS)?cum.cT/cum.cTS:null,
+      weekSales:o.sales});
+  });
+  return pts;
+}
+function niceTicks(lo,hi,n){
+  var span=hi-lo, step=Math.pow(10,Math.floor(Math.log10(span/n))), err=n/span*step;
+  if(err<=.15)step*=10;else if(err<=.35)step*=5;else if(err<=.75)step*=2;
+  var a=Math.floor(lo/step)*step, b=Math.ceil(hi/step)*step, t=[];
+  for(var v=a;v<=b+step/2;v+=step) t.push(Math.round(v*1e6)/1e6);
+  return t;
+}
+
+
+var HUB='https://morningbellebrunch.github.io/manager-hub/';
+var state={rest:'ALL',week:WEEKS[WEEKS.length-1],page:'exec',metric:'sales',range:'all',from:WEEKS[0],to:WEEKS[WEEKS.length-1],scope:'ALL'};
+var root=document.documentElement;
+
+/* Hub pill: step back to the hub when we came from it, otherwise open it fresh */
+$('#hub').addEventListener('click',function(e){
+  try{ if(document.referrer && document.referrer.indexOf(HUB)===0 && history.length>1){ e.preventDefault(); history.back(); } }catch(err){}
+});
+
+/* Theme switch */
+function setTheme(t,save){
+  root.setAttribute('data-theme',t);
+  var m=document.querySelector('meta[name="theme-color"]'); if(m) m.setAttribute('content',t==='dark'?'#0b1a20':'#f0f5f0');
+  if(save){ try{localStorage.setItem('mb-theme',t);}catch(e){} }
+  if(state.page==='trends') drawTrend();
+}
+$('#theme').addEventListener('click',function(){ setTheme(root.getAttribute('data-theme')==='dark'?'light':'dark',true); });
+try{ var mq=matchMedia('(prefers-color-scheme: dark)'); mq.addEventListener('change',function(e){ var saved=null; try{saved=localStorage.getItem('mb-theme');}catch(x){} if(!saved) setTheme(e.matches?'dark':'light',false); }); }catch(e){}
+
+/* Week selector */
+function fillWeeks(sel,val){ sel.innerHTML=WEEKS.slice().reverse().map(function(w){return '<option value="'+w+'">'+esc(DATA.weeks[w].label)+'</option>';}).join(''); sel.value=String(val); }
+fillWeeks($('#week'),state.week);
+$('#week').addEventListener('change',function(e){state.week=Number(e.target.value);render();});
+(function(){
+  var sel=$('#rest'), names={}; ROWS.forEach(function(r){names[r.rest]=r.name;});
+  sel.innerHTML='<option value="ALL">All restaurants</option>'+Object.keys(names).sort().map(function(k){return '<option value="'+k+'">'+esc(names[k])+'</option>';}).join('');
+  var saved=null; try{saved=localStorage.getItem('mb-wp-restaurant');}catch(e){}
+  if(saved&&(saved==='ALL'||names[saved])) state.rest=saved;
+  sel.value=state.rest;
+  sel.addEventListener('change',function(){state.rest=sel.value;try{localStorage.setItem('mb-wp-restaurant',state.rest);}catch(e){}render();});
+})();
+$('#pdf').addEventListener('click',function(){ window.print(); });
+
+/* Shared row builder: a table on wide screens, stacked rows with a sub line on phones */
+function grid(cols,list,opts){
+  opts=opts||{};
+  var t='<div class="tbl"><table><thead><tr>'+cols.map(function(c){return '<th>'+c.h+'</th>';}).join('')+'</tr></thead><tbody>';
+  list.forEach(function(l){
+    t+='<tr class="'+(l.kind==='tot'?'tot':(l.kind==='bp'?'bpr':''))+'">'+cols.map(function(c){var v=c.v(l);return '<td'+(v.c?' class="'+v.c+'"':'')+'>'+v.t+'</td>';}).join('')+'</tr>';
+  });
+  t+='</tbody></table></div><div class="rows">';
+  list.forEach(function(l){
+    var main=cols[opts.main||1].v(l);
+    t+='<div class="r '+(l.kind==='tot'?'tot':(l.kind==='bp'?'bpr':''))+'"><div class="r-top"><span>'+cols[0].v(l).t+'</span><b'+(main.c?' class="'+main.c+'"':'')+'>'+main.t+'</b></div><div class="r-sub">';
+    cols.forEach(function(c,i){ if(i===0||i===(opts.main||1)||c.skipMobile) return; var v=c.v(l); if(v.t==='') return; t+='<span><i>'+(c.mh||c.h)+'</i><b'+(v.c?' class="'+v.c+'"':'')+' style="font-weight:600">'+v.t+'</b></span>'; });
+    t+='</div></div>';
+  });
+  return t+'</div>';
+}
+var V=function(t,c){return {t:t,c:c||''};};
+
+/* Simple views shared by Summary and Month */
+function discOf(rows){var d=0,s=0,n=0,b={errors:0,hospitality:0,team:0,promos:0};rows.forEach(function(r){var x=num(r.disc_total),sl=num(r.sales);if(x!=null&&sl!=null){d+=x;s+=sl;n++;b.errors+=num(r.disc_errors)||0;b.hospitality+=num(r.disc_hospitality)||0;b.team+=num(r.disc_team)||0;b.promos+=num(r.disc_promos)||0;}});return n?{usd:d,pct:d/(s+d),b:b}:null;}
+function catOf(rows){var s=0,n=0;rows.forEach(function(r){var c=num(r.cater_events);if(c!=null){s+=c;n++;}});return n?s:null;}
+function overCls(a,t){if(a==null||t==null)return '';return a>t+0.00049?'over':'ok';}
+function money(v){return '$'+Math.abs(Math.round(v)).toLocaleString('en-US');}
+function ptsOf(v){ if(v.prime==null||v.primeT==null) return ''; var p=Math.round((v.prime-v.primeT)*1000)/10; return '<span class="pp">'+(p>0?'+':(p<0?'\u2212':''))+Math.abs(p).toFixed(1)+'%</span>'; }
+function varUsd(v){ return (v.prime!=null&&v.primeT!=null&&v.sales)?(v.prime-v.primeT)*v.sales:null; }
+function simpleTiles(o){
+  var t=function(k,v,s,c){return '<div class="sh-tile"><div class="k">'+k+'</div><div class="v'+(c?' '+c:'')+'">'+v+'</div><div class="s">'+s+'</div></div>';};
+  var miss=function(a,tg){return tg!=null?'target '+pct(tg):(a!=null?'target missing':'not loaded yet');};
+  return '<div class="sh-tiles six">'+
+    t('Sales',usd(o.sales),'<span class="'+signCls(o.vsPY)+'">'+sgn(o.vsPY)+'</span> vs last year')+
+    t('Labor',pct(o.labor),miss(o.labor,o.laborT),overCls(o.labor,o.laborT))+
+    t('COGS',pct(o.cogs),miss(o.cogs,o.cogsT),overCls(o.cogs,o.cogsT))+
+    t('Prime',pct(o.prime),miss(o.prime,o.primeT),overCls(o.prime,o.primeT))+
+    t('Cash contribution',usd(o.cash),'sales minus prime')+
+    t('Catering sales',o.cater==null?'n/a':usd(o.cater),o.cater==null?'not loaded yet':'Toast catering center')+
+    t('Discounts and comps',o.disc?usd(o.disc.usd):'n/a',o.disc?pct(o.disc.pct)+' of gross sales':'not loaded yet')+'</div>';
+}
+function simpleTable(list){
+  return grid([
+    {h:'Restaurant',v:function(l){return V(esc(l.name));}},
+    {h:'Sales',v:function(l){return V(usd(l.v.sales));}},
+    {h:'vs PY',v:function(l){return V(sgn(l.v.vsPY),signCls(l.v.vsPY));}},
+    {h:'Labor',v:function(l){return V(pct(l.v.labor),overCls(l.v.labor,l.v.laborT));}},
+    {h:'COGS',v:function(l){return V(pct(l.v.cogs),overCls(l.v.cogs,l.v.cogsT));}},
+    {h:'Prime',v:function(l){return V(pct(l.v.prime),overCls(l.v.prime,l.v.primeT));}},
+    {h:'Cash',v:function(l){return V(usd(l.v.cash));}},
+    {h:'Catering',v:function(l){return V(l.v.cater==null?'n/a':usd(l.v.cater),l.v.cater==null?'mut':'');}},
+    {h:'Discounts',v:function(l){return V(l.v.disc?pct(l.v.disc.pct):'n/a',l.v.disc?'':'mut');}}
+  ],list);
+}
+var KEY='<div class="foot">Red bold is over target, green is at or under. Labor includes manager salaries and 4% add ons. Prime is labor plus COGS.</div>';
+
+/* The lead: prime dollars against target, by restaurant */
+function leadAll(list,total,scopeWord){
+  var items=list.filter(function(l){return l.kind!=='tot';}).map(function(l){return {name:l.name,d:varUsd(l.v),p:ptsOf(l.v)};});
+  var max=Math.max.apply(null,items.map(function(i){return i.d==null?0:Math.abs(i.d);}).concat([1]));
+  var td=varUsd(total);
+  var h='<div class="lead"><div class="lead-k">Prime dollars against target, '+scopeWord+'</div>';
+  h+='<div class="lead-big '+(td==null?'':(td>0?'over':'kept'))+'">'+(td==null?'n/a':(td>0?money(td)+' over':money(td)+' under'))+ptsOf(total)+'</div>';
+  h+='<div class="bars">';
+  items.forEach(function(i){
+    var w=i.d==null?0:Math.abs(i.d)/max*50, cls=i.d==null?'':(i.d>0?'b-over':'b-kept');
+    var lbl=i.d==null?'n/a':(i.d>0?money(i.d)+' over':money(i.d)+' under')+i.p;
+    h+='<div class="bar"><span class="bn">'+esc(i.name)+'</span><span class="bt"><span class="bz"></span><span class="bf '+cls+'" style="width:'+w.toFixed(1)+'%;'+(i.d>0?'left:50%':'right:50%')+'"></span></span><span class="bv '+(i.d==null?'mut':(i.d>0?'over':'kept'))+'">'+lbl+'</span></div>';
+  });
+  return h+'</div></div>';
+}
+function lever(v){
+  if(v.sales==null) return '';
+  var L=(v.labor!=null&&v.laborT!=null)?(v.labor-v.laborT)*v.sales:null, C=(v.cogs!=null&&v.cogsT!=null)?(v.cogs-v.cogsT)*v.sales:null;
+  var pick=(L==null&&C==null)?null:((C==null||(L!=null&&Math.abs(L)>=Math.abs(C)))?['Labor',L]:['COGS',C]);
+  if(!pick) return '';
+  return '<p class="lever"><b>'+pick[0]+' moved it most.</b> '+pick[0]+' ran '+money(pick[1])+(pick[1]>0?' over':' under')+' target'+(pick[0]==='Labor'&&C!=null?', COGS '+money(C)+(C>0?' over':' under'):(L!=null?', labor '+money(L)+(L>0?' over':' under'):''))+'.</p>';
+}
+function leadOne(v){
+  var d=varUsd(v);
+  return '<div class="duo"><div><div class="lead-k">Sales vs last year</div><div class="lead-big '+(v.vsPY==null?'':(v.vsPY>=0?'kept':'over'))+'">'+sgn(v.vsPY)+'</div><div class="lead-s">'+usd(v.sales)+' against '+usd(v.py)+'</div></div>'+
+    '<div><div class="lead-k">Prime dollars vs target</div><div class="lead-big '+(d==null?'':(d>0?'over':'kept'))+'">'+(d==null?'n/a':(d>0?money(d)+' over':money(d)+' under'))+ptsOf(v)+'</div><div class="lead-s">prime '+pct(v.prime)+' against '+pct(v.primeT)+'</div></div></div>'+lever(v);
+}
+function restName(){ var r=ROWS.filter(function(x){return x.rest===state.rest;})[0]; return r?r.name:''; }
+
+/* Summary: one week */
+function renderExec(){
+  var seq=state.week, w=DATA.weeks[seq], rows=weekRows(seq);
+  var h;
+  if(state.rest!=='ALL'){
+    var rr=rows.filter(function(r){return r.rest===state.rest;}), v=view(agg(rr)); v.cater=catOf(rr); v.disc=discOf(rr);
+    h='<h2 class="sh-title">'+esc(restName())+'</h2><div class="sh-sub">'+esc(w.label)+' | '+esc(w.dates)+'</div><div class="sh-rule"></div>'+leadOne(v)+simpleTiles(v)+KEY;
+  } else {
+    var A=view(agg(rows)); A.cater=catOf(rows); A.disc=discOf(rows);
+    var L=lines(seq); L.forEach(function(l){var src=l.row?[l.row]:(l.name==='Morning Belle total'?rows.filter(isMB):rows); l.v.cater=catOf(src); l.v.disc=discOf(src);});
+    h='<h2 class="sh-title">Morning Belle + Blue Porch</h2><div class="sh-sub">'+esc(w.label)+' | '+esc(w.dates)+'</div><div class="sh-rule"></div>';
+    h+=leadAll(L,A,'this week')+simpleTiles(A)+'<h3>By restaurant</h3>'+simpleTable(L)+KEY;
+    var tk=(w.takeaways||autoTake(seq)).slice(0,3);
+    if(tk.length) h+='<h3>What matters</h3><ul class="pts">'+tk.map(function(p){return '<li><b>'+esc(p[0])+'</b> '+esc(p[1])+'</li>';}).join('')+'</ul>';
+  }
+  h+='<div class="src"><span>Toast, PAR Data Central, labor tool</span><span>Morning Belle | Confidential</span></div>';
+  $('#sheet').innerHTML=h;
+}
+
+/* Month: period to date through the selected week */
+function ptdLine(rs){
+  var by={}; rs.forEach(function(r){(by[r.rest]=by[r.rest]||[]).push(r);});
+  var o={sales:0,py:0,pyS:0,lab:0,labT:0,labS:0,cogs:0,cogsT:0,cS:0,cTS:0,prime:0,primeT:0,pS:0,pTS:0,cash:0,cater:null,n:0};
+  Object.keys(by).forEach(function(k){
+    var list=by[k].filter(function(r){return num(r.sales)!==null;}); if(!list.length) return;
+    var s=0,py=0,pyS=0,lab=0,labT=0,ls=0,hasT=true;
+    list.forEach(function(r){var x=num(r.sales);s+=x;if(num(r.py_sales)){py+=num(r.py_sales);pyS+=x;}
+      if(num(r.act_labor)!==null&&num(r.manager_usd)!==null){var ao=num(r.addon_pct)||0;lab+=x*(num(r.act_labor)+ao)+num(r.manager_usd);ls+=x;if(num(r.total_target)!==null)labT+=x*(num(r.total_target)+ao);else hasT=false;}
+      var c=num(r.cater_events); if(c!==null) o.cater=(o.cater||0)+c;});
+    o.n++; o.sales+=s; o.py+=py; o.pyS+=pyS; o.lab+=lab; o.labS+=ls; if(hasT) o.labT+=labT;
+    var lc=list.filter(function(r){return num(r.cogs_act)!==null;}).sort(function(a,b){return b.week_seq-a.week_seq;})[0];
+    if(lc){var cp=num(lc.cogs_act)*s;o.cogs+=cp;o.cS+=s;var ct=num(lc.cogs_tgt);
+      if(ls===s){o.prime+=lab+cp;o.pS+=s;o.cash+=s-lab-cp;}
+      if(ct!==null){o.cogsT+=ct*s;o.cTS+=s;if(ls===s&&hasT){o.primeT+=labT+ct*s;o.pTS+=s;}}}
+  });
+  return {n:o.n,sales:o.n?o.sales:null,vsPY:o.py?o.pyS/o.py-1:null,py:o.py||null,
+    labor:o.labS?o.lab/o.labS:null,laborT:o.labS&&o.labT?o.labT/o.labS:null,
+    cogs:o.cS?o.cogs/o.cS:null,cogsT:(o.cS&&o.cTS===o.cS)?o.cogsT/o.cTS:null,
+    prime:o.pS?o.prime/o.pS:null,primeT:(o.pS&&o.pTS===o.pS)?o.primeT/o.pTS:null,
+    cash:o.pS?o.cash:null,cater:o.cater,disc:discOf(rs)};
+}
+function renderMTD(){
+  var seq=state.week, per=DATA.weeks[seq].period;
+  var ws=WEEKS.filter(function(w){return DATA.weeks[w].period===per&&w<=seq;});
+  var all=ROWS.filter(function(r){return ws.indexOf(r.week_seq)>=0;});
+  var first=DATA.weeks[ws[0]], last=DATA.weeks[ws[ws.length-1]];
+  var range=first.dates.split(' to ')[0]+' to '+last.dates.split(' to ')[1];
+  var sub='Through '+esc(last.label)+' | '+esc(range)+' | '+ws.length+' week'+(ws.length===1?'':'s');
+  var perName=per.replace(/ (\d\d)$/,' 20$1');
+  var h;
+  if(state.rest!=='ALL'){
+    var mine=all.filter(function(r){return r.rest===state.rest;}), v=ptdLine(mine);
+    h='<h2 class="sh-title">'+esc(restName())+', '+esc(perName)+' to date</h2><div class="sh-sub">'+sub+'</div><div class="sh-rule"></div>'+leadOne(v)+simpleTiles(v)+KEY;
+    var WL1=ws.map(function(w){var rr=mine.filter(function(r){return r.week_seq===w;});var x=view(agg(rr));x.cater=catOf(rr);x.disc=discOf(rr);return {name:DATA.weeks[w].label,kind:'r',v:x};});
+    h+='<h3>Week by week</h3>'+simpleTable(WL1);
+  } else {
+    var A=ptdLine(all);
+    var rests=[]; all.forEach(function(r){if(!rests.some(function(x){return x.rest===r.rest;}))rests.push(r);}); rests.sort(function(a,b){return a.rest.localeCompare(b.rest);});
+    var L=rests.filter(isMB).map(function(r){return {name:r.name,kind:'r',v:ptdLine(all.filter(function(x){return x.rest===r.rest;}))};});
+    L.push({name:'Morning Belle total',kind:'tot',v:ptdLine(all.filter(isMB))});
+    rests.filter(function(r){return !isMB(r);}).forEach(function(r){L.push({name:r.name,kind:'bp',v:ptdLine(all.filter(function(x){return x.rest===r.rest;}))});});
+    L.push({name:'All restaurants',kind:'tot',v:A});
+    h='<h2 class="sh-title">'+esc(perName)+' to date</h2><div class="sh-sub">'+sub+'</div><div class="sh-rule"></div>';
+    h+=leadAll(L,A,'period to date')+simpleTiles(A)+'<h3>By restaurant</h3>'+simpleTable(L)+KEY;
+    var WL=ws.map(function(w){var rr=ROWS.filter(function(r){return r.week_seq===w;});var x=view(agg(rr));x.cater=catOf(rr);x.disc=discOf(rr);return {name:DATA.weeks[w].label,kind:'r',v:x};});
+    h+='<h3>Week by week, all restaurants</h3>'+simpleTable(WL);
+    var story=(DATA.periods&&DATA.periods[per]&&DATA.periods[per][String(seq)])||null;
+    if(story) h+='<h3>The picture so far</h3><ul class="pts">'+story.map(function(p){return '<li><b>'+esc(p[0])+'</b> '+esc(p[1])+'</li>';}).join('')+'</ul>';
+  }
+  h+='<div class="src"><span>COGS is period to date from PAR</span><span>Morning Belle | Confidential</span></div>';
+  $('#mtd').innerHTML=h;
+}
+
+/* Dashboard */
+function renderDash(){
+  var seq=state.week, w=DATA.weeks[seq], rows=weekRows(seq), L=lines(seq);
+  var M=view(agg(rows.filter(isMB))), B=view(agg(rows.filter(function(r){return !isMB(r);})));
+  var missing=rows.filter(function(r){return num(r.sales)===null;}).map(function(r){return r.name;});
+  var tk=(w.takeaways||autoTake(seq))[0];
+  var h='<div class="card glass t-green rise">'+(tk?'<p class="take"><b>'+esc(tk[0])+'</b> '+esc(tk[1])+'</p>':'<p class="take">'+esc(w.label)+'</p>')+(missing.length?'<div class="partial">Partial week. Missing '+esc(missing.join(', '))+'.</div>':'')+'</div>';
+  var tile=function(k,v,s,t){return '<div class="tile glass '+t+'"><div class="k">'+k+'</div><div class="v">'+v+'</div><div class="s">'+s+'</div></div>';};
+  var lp=ptsf(M.labor,M.laborT), pp=ptsf(M.prime,M.primeT);
+  h+='<div class="label d-green rise">Headline</div><div class="tiles rise">'+
+    tile('Morning Belle sales',usd(M.sales),'<span class="'+signCls(M.vsPY)+'">'+sgn(M.vsPY)+'</span> vs PY','t-green')+
+    tile('Morning Belle labor',pct(M.labor),'target '+pct(M.laborT)+' <span class="'+lp.c+'">'+lp.t+'</span>','t-green')+
+    tile('Morning Belle prime',pct(M.prime),'target '+pct(M.primeT)+' <span class="'+pp.c+'">'+pp.t+'</span>','t-green')+
+    tile('Morning Belle contribution',usd(M.cash),'after prime cost','t-green')+
+    tile('Blue Porch sales',usd(B.sales),'<span class="'+signCls(B.vsPY)+'">'+sgn(B.vsPY)+'</span> vs PY','t-sage')+
+    tile('Blue Porch prime',pct(B.prime),B.primeT!=null?'target '+pct(B.primeT):'contribution '+usd(B.cash),'t-sage')+'</div>';
+
+  h+='<div class="label d-green rise">Sales</div><div class="card glass t-green rise"><p class="note">Week sales against last year and the prior week. Avg check is net sales divided by guest count.</p>'+grid([
+    {h:'Restaurant',v:function(l){return V(esc(l.name));}},
+    {h:'Sales',v:function(l){return V(usd(l.v.sales));}},
+    {h:'PY',v:function(l){return V(usd(l.v.py));}},
+    {h:'vs PY',v:function(l){return V(sgn(l.v.vsPY),signCls(l.v.vsPY));}},
+    {h:'vs prior wk',v:function(l){return V(sgn(l.v.vsWk),signCls(l.v.vsWk));}},
+    {h:'Guests',v:function(l){var g=l.row?num(l.row.guest_count):null;return V(l.row?(g==null?'n/a':g.toLocaleString('en-US')):'');}},
+    {h:'Avg check',v:function(l){var g=l.row?num(l.row.guest_count):null;return V(l.row?(g&&l.v.sales?'$'+(l.v.sales/g).toFixed(2):'n/a'):'');}}
+  ],L)+'</div>';
+
+  h+='<div class="label d-teal rise">Labor</div><div class="card glass t-teal rise"><p class="note">Hourly from Toast against the labor tool target. Total adds manager salaries and 4% add ons, against 34% at East Beltline and 32% elsewhere.</p>'+grid([
+    {h:'Restaurant',v:function(l){return V(esc(l.name));}},
+    {h:'Total',v:function(l){var p=ptsf(l.v.labor,l.v.laborT);return V(pct(l.v.labor),p.c==='mut'?'':p.c);}},
+    {h:'Total tgt',v:function(l){return V(pct(l.v.laborT));}},
+    {h:'vs tgt',v:function(l){var p=ptsf(l.v.labor,l.v.laborT);return V(p.t,p.c);}},
+    {h:'Hourly',v:function(l){return V(pct(l.v.hourly));}},
+    {h:'Hourly tgt',v:function(l){return V(pct(l.v.hourlyT,2));}},
+    {h:'Hourly vs tgt',v:function(l){var p=ptsf(l.v.hourly,l.v.hourlyT);return V(p.t,p.c);}},
+    {h:'Mgr $',v:function(l){return V(l.row?usd(num(l.row.manager_usd)):'');}},
+    {h:'Ops labor',v:function(l){return V(l.row?pct(num(l.row.ops_labor)):'');},skipMobile:true}
+  ],L)+'</div>';
+
+  h+='<div class="label d-coral rise">Prime cost</div><div class="card glass t-coral rise"><p class="note">COGS is period to date, goal within 0.75% of target. Prime is total labor plus COGS. Contribution is sales minus prime.</p>'+grid([
+    {h:'Restaurant',v:function(l){return V(esc(l.name));}},
+    {h:'Prime',v:function(l){var p=ptsf(l.v.prime,l.v.primeT);return V(pct(l.v.prime),p.c==='mut'?'':p.c);}},
+    {h:'Prime tgt',v:function(l){return V(pct(l.v.primeT));}},
+    {h:'vs tgt',v:function(l){var p=ptsf(l.v.prime,l.v.primeT);return V(p.t,p.c);}},
+    {h:'vs tgt $',v:function(l){var d=l.v.primeVarUsd,p=ptsf(l.v.prime,l.v.primeT);return V(d==null?'n/a':(d>0?'+':'\u2212')+'$'+Math.abs(Math.round(d)).toLocaleString('en-US'),p.c);}},
+    {h:'COGS',v:function(l){return V(pct(l.v.cogs));}},
+    {h:'COGS tgt',v:function(l){return V(pct(l.v.cogsT));}},
+    {h:'COGS vs tgt',v:function(l){var p=ptsf(l.v.cogs,l.v.cogsT);if(l.v.cogs!=null&&l.v.cogsT!=null&&Math.abs(l.v.cogs-l.v.cogsT)<0.0075)p.c='';return V(p.t,p.c);}},
+    {h:'Contribution',v:function(l){return V(usd(l.v.cash));}}
+  ],L)+'</div>';
+
+  var DL=L.map(function(l){var src=l.row?[l.row]:(l.name==='Morning Belle total'?rows.filter(isMB):rows);return {name:l.name,kind:l.kind,d:discOf(src)};});
+  var dv=function(k){return function(l){return V(l.d?usd(l.d.b[k]):'n/a',l.d?'':'mut');};};
+  h+='<div class="label d-coral rise">Discounts and comps</div><div class="card glass t-coral rise"><p class="note">From the Toast sales summary. Percent is of gross sales, before discounts.</p>'+grid([
+    {h:'Restaurant',v:function(l){return V(esc(l.name));}},
+    {h:'Total',v:function(l){return V(l.d?usd(l.d.usd):'n/a',l.d?'':'mut');}},
+    {h:'% of gross',v:function(l){return V(l.d?pct(l.d.pct):'n/a',l.d?'':'mut');}},
+    {h:'Errors',v:dv('errors')},
+    {h:'Hospitality',v:dv('hospitality')},
+    {h:'Team meals',v:dv('team')},
+    {h:'Promos and rewards',v:dv('promos')}
+  ],DL)+'</div>';
+  var mr=(DATA.mbReviews||[]).filter(function(x){return x.week_seq===seq;})[0];
+  var RL=rows.map(function(r){return {name:r.name,row:r,kind:isMB(r)?'r':'bp'};});
+  if(mr) RL.push({name:'Morning Belle total',row:mr,kind:'tot'});
+  h+='<div class="label d-amber rise">Reviews</div><div class="card glass t-yellow rise"><p class="note">60 day reviews. Goals are a 4.3 average, 8% or less 1 to 2 star, and 95% or more Toast.</p>'+grid([
+    {h:'Restaurant',v:function(l){return V(esc(l.name));}},
+    {h:'Avg stars',v:function(l){var a=num(l.row.star_avg);return V(a==null?'n/a':a.toFixed(1),a==null?'mut':(a>=4.3?'ok':'bad'));}},
+    {h:'1 to 2 star',v:function(l){var a=num(l.row.one_two_star);return V(pct(a),a==null?'mut':(a<=.08?'ok':'bad'));}},
+    {h:'Toast',v:function(l){var a=num(l.row.toast_pct);return V(pct(a,0),a==null?'mut':(a>=.95?'ok':'bad'));}},
+    {h:'Loyalty ret.',v:function(l){return V(l.kind==='tot'?'':pct(num(l.row.loyalty_ret),0));}},
+    {h:'Non loyalty ret.',v:function(l){return V(l.kind==='tot'?'':pct(num(l.row.nonloyalty_ret),0));}}
+  ],RL)+'</div>';
+  $('#p-dash').innerHTML=h;
+  bindSpec();
+}
+
+/* Trends */
+var METRICS={
+  sales:{title:'Cumulative sales vs last year',note:'Running total of net sales against the same weeks last year.',a:'Sales',b:'Last year'},
+  cash:{title:'Cumulative cash contribution',note:'Running total of sales minus prime cost, against what target prime would have produced.',a:'Actual',b:'At target prime'},
+  prime:{title:'Prime cost, cumulative',note:'Prime dollars divided by sales across the weeks selected.',a:'Actual',b:'Target'},
+  labor:{title:'Total labor, cumulative',note:'Hourly plus manager salaries plus 4% add ons, as a share of sales.',a:'Actual',b:'Target'},
+  cogs:{title:'COGS, cumulative',note:'Sales weighted COGS across the weeks selected.',a:'Actual',b:'Target'}
+};
+function drawTrend(){
+  var m=state.metric, pts=series(), meta=METRICS[m], sc=$('#scope');
+  $('#ctitle').textContent=meta.title;
+  $('#cnote').textContent=meta.note+' '+(sc.options[sc.selectedIndex]?sc.options[sc.selectedIndex].text:'')+', '+(pts.length?pts[0].label+' to '+pts[pts.length-1].label:'no weeks')+'.';
+  var last=pts[pts.length-1], st=[], A, Bk, fmt, isPct=false;
+  if(m==='sales'){A='sales';Bk='py';fmt=usd; if(last){var vv=last.py?last.pyS/last.py-1:null; st=[['Sales',usd(last.sales)],['Last year',usd(last.py)],['vs PY','<span class="'+signCls(vv)+'">'+sgn(vv)+'</span>']];}}
+  else if(m==='cash'){A='cash';Bk='cashT';fmt=usd; if(last){var d=(last.cash!=null&&last.cashT!=null)?last.cash-last.cashT:null; st=[['Contribution',usd(last.cash)],['At target',usd(last.cashT)],['vs target',d==null?'n/a':'<span class="'+(d>=0?'ok':'bad')+'">'+(d>=0?'+':'\u2212')+usd(Math.abs(d))+'</span>']];}}
+  else {A=m;Bk=m+'T';isPct=true;fmt=function(v){return pct(v);}; if(last){var t=ptsf(last[A],last[Bk]); st=[['Actual',pct(last[A])],['Target',pct(last[Bk])],['vs target','<span class="'+t.c+'">'+t.t+'</span>']];}}
+  if(last) st.push(['Weeks',String(pts.length)]);
+  $('#cstats').innerHTML=st.map(function(s){return '<div class="stat"><div class="k">'+s[0]+'</div><div class="v">'+s[1]+'</div></div>';}).join('');
+  var el=$('#chart'); el.innerHTML='';
+  var vals=pts.map(function(p){return p[A];}).concat(pts.map(function(p){return p[Bk];})).filter(function(v){return v!=null;});
+  if(!pts.length||!vals.length){el.innerHTML='<div class="empty">No numbers for these weeks yet. Pick a wider timeframe.</div>';$('#clegend').innerHTML='';return;}
+  var W=Math.max(el.clientWidth,280), H=Math.max(230,Math.min(340,W*.5)), mt=12, mb=30, mr=14;
+  var lo=Math.min.apply(null,vals), hi=Math.max.apply(null,vals);
+  if(!isPct) lo=0; else {var pad=Math.max((hi-lo)*.25,.01); lo=Math.max(0,lo-pad); hi+=pad;}
+  if(hi===lo) hi=lo+1;
+  var ticks=niceTicks(lo,hi,5); lo=ticks[0]; hi=ticks[ticks.length-1];
+  var tdec=(isPct&&(ticks[1]-ticks[0])<.01)?1:0;
+  var tf=isPct?function(v){return (v*100).toFixed(tdec)+'%';}:function(v){return v>=1000?'$'+Math.round(v/1000)+'k':'$'+v;};
+  var ml=10+Math.max.apply(null,ticks.map(function(t){return tf(t).length;}))*6.8;
+  var x=function(i){return pts.length===1?(ml+W-mr)/2:ml+i*(W-ml-mr)/(pts.length-1);};
+  var y=function(v){return mt+(1-(v-lo)/(hi-lo))*(H-mt-mb);};
+  var s='<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="'+esc(meta.title)+'">';
+  ticks.forEach(function(t){s+='<line x1="'+ml+'" x2="'+(W-mr)+'" y1="'+y(t)+'" y2="'+y(t)+'" style="stroke:var(--chart-grid)"/><text x="'+(ml-8)+'" y="'+y(t)+'" dy=".32em" text-anchor="end" font-size="11" style="fill:var(--ink-soft)">'+tf(t)+'</text>';});
+  var step=Math.max(1,Math.ceil(pts.length*74/(W-ml-mr)));
+  pts.forEach(function(p,i){ if((pts.length-1-i)%step) return; var an=pts.length===1?'middle':(i===0?'start':(i===pts.length-1?'end':'middle')); s+='<text x="'+x(i)+'" y="'+(H-8)+'" text-anchor="'+an+'" font-size="11" style="fill:var(--ink-soft)">'+esc(p.label.replace(/ \d\d$/,''))+'</text>';});
+  var path=function(k){var d='',on=false;pts.forEach(function(p,i){if(p[k]==null){on=false;return;}d+=(on?'L':'M')+x(i).toFixed(1)+' '+y(p[k]).toFixed(1);on=true;});return d;};
+  if(m==='sales'||m==='cash'){var ar=path(A); if(ar) s+='<path d="'+ar+'L'+x(pts.length-1)+' '+y(lo)+'L'+x(0)+' '+y(lo)+'Z" style="fill:var(--chart-fill)"/>';}
+  s+='<path d="'+path(Bk)+'" fill="none" style="stroke:var(--chart-b)" stroke-width="2" stroke-dasharray="6 5" stroke-linecap="round"/>';
+  s+='<path d="'+path(A)+'" fill="none" style="stroke:var(--chart-a)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>';
+  pts.forEach(function(p,i){ if(p[Bk]!=null) s+='<circle cx="'+x(i)+'" cy="'+y(p[Bk])+'" r="3.5" style="fill:var(--chart-b)"/>'; if(p[A]!=null) s+='<circle cx="'+x(i)+'" cy="'+y(p[A])+'" r="5" style="fill:var(--chart-a);stroke:var(--surface-ring,#fff)" stroke-width="2"/>'; });
+  s+='<rect x="'+ml+'" y="'+mt+'" width="'+(W-ml-mr)+'" height="'+(H-mt-mb)+'" fill="transparent"/></svg>';
+  el.innerHTML=s+'<div class="tip" hidden></div>';
+  $('#clegend').innerHTML='<span><i style="background:var(--chart-a)"></i>'+meta.a+'</span><span><i style="background:repeating-linear-gradient(90deg,var(--chart-b) 0 6px,transparent 6px 10px)"></i>'+meta.b+'</span>';
+  var tip=el.querySelector('.tip'), svg=el.querySelector('svg');
+  var move=function(ev){
+    var r=svg.getBoundingClientRect(), px=(ev.clientX-r.left)*W/r.width, b=0;
+    pts.forEach(function(p,i){if(Math.abs(x(i)-px)<Math.abs(x(b)-px))b=i;});
+    var p=pts[b]; tip.innerHTML='<div class="h">Through '+esc(p.label)+'</div>'+meta.a+' '+fmt(p[A])+'<br>'+meta.b+' '+fmt(p[Bk]); tip.hidden=false;
+    var left=x(b)/W*el.clientWidth+12; if(left+tip.offsetWidth>el.clientWidth) left=x(b)/W*el.clientWidth-tip.offsetWidth-12; tip.style.left=Math.max(0,left)+'px';
+  };
+  svg.addEventListener('pointermove',move); svg.addEventListener('pointerdown',move); svg.addEventListener('pointerleave',function(){tip.hidden=true;});
+}
+(function setupTrends(){
+  var sc=$('#scope'), names={};
+  ROWS.forEach(function(r){names[r.rest]=r.name;});
+  sc.innerHTML='<option value="ALL">All restaurants</option><option value="MB">Morning Belle total</option>'+Object.keys(names).sort().map(function(k){return '<option value="'+k+'">'+esc(names[k])+'</option>';}).join('');
+  sc.addEventListener('change',function(){state.scope=sc.value;drawTrend();});
+  fillWeeks($('#from'),state.from); fillWeeks($('#to'),state.to);
+  $('#from').addEventListener('change',function(e){state.from=Number(e.target.value);drawTrend();});
+  $('#to').addEventListener('change',function(e){state.to=Number(e.target.value);drawTrend();});
+  document.querySelectorAll('#metric button').forEach(function(b){b.addEventListener('click',function(){state.metric=b.dataset.m;document.querySelectorAll('#metric button').forEach(function(x){x.setAttribute('aria-pressed',String(x===b));});drawTrend();});});
+  document.querySelectorAll('#range button').forEach(function(b){b.addEventListener('click',function(){state.range=b.dataset.r;document.querySelectorAll('#range button').forEach(function(x){x.setAttribute('aria-pressed',String(x===b));});$('#lfrom').hidden=$('#lto').hidden=state.range!=='custom';drawTrend();});});
+  var tm; window.addEventListener('resize',function(){clearTimeout(tm);tm=setTimeout(function(){if(state.page==='trends')drawTrend();placePill();},150);});
+})();
+
+/* Specular follows the pointer */
+function bindSpec(){
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  document.querySelectorAll('.glass').forEach(function(el){
+    if(el._s) return; el._s=1;
+    el.addEventListener('pointermove',function(e){var r=el.getBoundingClientRect();el.style.setProperty('--mx',((e.clientX-r.left)/r.width*100)+'%');el.style.setProperty('--my',((e.clientY-r.top)/r.height*100)+'%');});
+  });
+}
+
+/* Dock: pages mode */
+var dock=$('#dock'), pill=$('#dpill'), holdUntil=0;
+function placePill(){
+  var a=dock.querySelector('[aria-current="page"]'); if(!a) return;
+  pill.style.width=a.offsetWidth+'px'; pill.style.transform='translateX('+a.offsetLeft+'px)';
+  dock.style.setProperty('--tint',a.dataset.tint);
+}
+function setPH(){
+  var w=DATA.weeks[state.week], nm={exec:'Summary',mtd:'Month to date',dash:'Dashboard',trends:'Trends'}[state.page];
+  $('#ph').hidden=(state.page==='exec'||state.page==='mtd');
+  $('#ph').textContent='Morning Belle + Blue Porch | '+nm+(state.page==='trends'?'':' | '+w.label+' | '+w.dates);
+  document.title='MB Weekly Performance '+nm+(state.page==='trends'?'':' '+w.label);
+}
+function go(p,fromTap){
+  var was=state.page; state.page=p;
+  dock.querySelectorAll('.di').forEach(function(d){ if(d.dataset.p===p) d.setAttribute('aria-current','page'); else d.removeAttribute('aria-current'); });
+  document.querySelectorAll('.page').forEach(function(s){s.classList.toggle('on',s.id==='p-'+p);});
+  $('#week').hidden=p==='trends';
+  $('#rest').hidden=!(p==='exec'||p==='mtd'); setPH();
+  $('#herosub').textContent={exec:'The week on one page. Export it as a PDF to print or send.',mtd:'The period so far, built week by week.',dash:'Every restaurant, every number, for the week you pick.',trends:'Running totals across the weeks you choose.'}[p];
+  if(fromTap){ holdUntil=Date.now()+1100; dock.classList.remove('min'); if(was===p) window.scrollTo({top:0,behavior:'smooth'}); else window.scrollTo(0,0); }
+  requestAnimationFrame(placePill);
+  if(p==='trends') drawTrend();
+}
+dock.querySelectorAll('.di').forEach(function(d){ d.addEventListener('click',function(){ if(dock.classList.contains('min')&&d.getAttribute('aria-current')==='page'){dock.classList.remove('min');holdUntil=Date.now()+1100;requestAnimationFrame(placePill);return;} go(d.dataset.p,true); }); });
+
+/* Scroll: header collapse and dock minimize */
+var lastY=window.scrollY, ticking=false;
+function onScroll(){
+  var yv=window.scrollY;
+  root.style.setProperty('--hp',Math.min(1,Math.max(0,yv/140)).toFixed(3));
+  var atBottom=window.innerHeight+yv>=document.documentElement.scrollHeight-4;
+  if(Date.now()>holdUntil){
+    if(yv>120 && yv>lastY && !atBottom) dock.classList.add('min');
+    else if(yv<lastY || atBottom || yv<=120) dock.classList.remove('min');
+    requestAnimationFrame(placePill);
+  }
+  lastY=yv; ticking=false;
+}
+window.addEventListener('scroll',function(){ if(!ticking){ticking=true;requestAnimationFrame(onScroll);} },{passive:true});
+dock.addEventListener('transitionend',placePill);
+
+function render(){ if(typeof setPH==='function'&&state.page) setPH(); renderExec(); renderMTD(); renderDash(); if(state.page==='trends') drawTrend(); }
+if(WEEKS.length<6){ var tdi=dock.querySelector('[data-p="trends"]'); if(tdi) tdi.hidden=true; }
+render(); go('exec',false); onScroll(); bindSpec();
+})();
+</script>
+</body>
+</html>
