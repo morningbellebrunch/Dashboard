@@ -136,6 +136,9 @@ html[data-theme="dark"] .hero h1 em{background:linear-gradient(100deg,#b9e08a,#a
 html[data-theme="dark"] .sel{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23a9c9d3' stroke-width='2'/%3E%3C/svg%3E") no-repeat right 14px center,linear-gradient(170deg,rgba(255,255,255,.1),rgba(255,255,255,.03)),rgba(9,20,25,.55)}
 .sel option{color:#1c303a;background:#fff}
 .btn{border:0;cursor:pointer;min-height:44px;padding:0 20px;border-radius:999px;font-weight:700;font-size:13.5px;color:#fff;background:linear-gradient(170deg,#4d7584,#3c5c68);box-shadow:inset 0 1px 1px rgba(255,255,255,.4),0 8px 20px rgba(60,92,104,.28);transition:transform .42s var(--ease-liquid)}
+.btn.ghost{color:var(--mb-teal);background:linear-gradient(170deg,rgba(255,255,255,.7),rgba(255,255,255,.3));box-shadow:var(--glass-edge),0 6px 16px rgba(40,70,84,.12)}
+html[data-theme="dark"] .btn.ghost{color:#d6ecf2;background:rgba(255,255,255,.08)}
+.pkg-h{display:none}
 .btn:hover{transform:translateY(-2px) scale(1.03)} .btn:active{transform:scale(.92);transition-duration:.16s}
 .sp{flex:1}
 .ph{display:none}
@@ -274,6 +277,10 @@ html[data-theme="dark"] .di[data-c="teal"]{--dock-c:#a9c9d3} html[data-theme="da
   :root,html[data-theme="dark"]{--ink:#222;--ink-soft:#555;--ink-faint:#777;--hairline:#c4c4c4;--ok:#1b5e20;--bad:#b71c1c;--row-bp:transparent;--chart-a:#4c7f1f;--chart-b:#3c5c68;--chart-grid:#ddd;--chart-fill:rgba(153,201,97,.25);--surface-ring:#fff;color-scheme:light}
   .canvas,.hdr,.dock,.hero,.toolbar,.page:not(.on),.ctrl,.tip{display:none!important}
   .page.on{display:block!important}
+  body.pkg #p-exec,body.pkg #p-mtd,body.pkg #p-dash{display:block!important}
+  body.pkg #p-trends,body.pkg .ph,.noprint{display:none!important}
+  body.pkg #p-mtd,body.pkg #p-dash{break-before:page;page-break-before:always}
+  body.pkg .pkg-h{display:block;font-family:var(--serif);font-size:14pt;font-weight:600;color:#222;border-bottom:1.5px solid #222;padding-bottom:6px;margin-bottom:12px}
   .ph{display:block;font-family:var(--serif);font-size:14pt;font-weight:600;color:#222;border-bottom:1.5px solid #222;padding-bottom:6px;margin-bottom:12px}
   #p-exec.on~.ph,#p-mtd.on~.ph{display:none}
   .glass{background:#fff!important;box-shadow:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;border-radius:6px!important}
@@ -343,6 +350,7 @@ html[data-theme="dark"] .di[data-c="teal"]{--dock-c:#a9c9d3} html[data-theme="da
     <select class="sel" id="rest" aria-label="Restaurant"></select>
     <select class="sel" id="week" aria-label="Week"></select>
     <span class="sp"></span>
+    <button class="btn ghost" id="pkg" title="Summary, Month and Dashboard in one PDF">Export package</button>
     <button class="btn" id="pdf">Export PDF</button>
   </div>
 
@@ -550,6 +558,8 @@ $('#week').addEventListener('change',function(e){state.week=Number(e.target.valu
   sel.addEventListener('change',function(){state.rest=sel.value;try{localStorage.setItem('mb-wp-restaurant',state.rest);}catch(e){}render();});
 })();
 $('#pdf').addEventListener('click',function(){ window.print(); });
+$('#pkg').addEventListener('click',function(){ document.body.classList.add('pkg'); var t=document.title; document.title='MB Weekly Package '+DATA.weeks[state.week].label; window.print(); setTimeout(function(){document.body.classList.remove('pkg');document.title=t;},500); });
+window.addEventListener('afterprint',function(){document.body.classList.remove('pkg');});
 
 /* Shared row builder: a table on wide screens, stacked rows with a sub line on phones */
 function grid(cols,list,opts){
@@ -713,7 +723,7 @@ function renderDash(){
   var M=view(agg(rows.filter(isMB))), B=view(agg(rows.filter(function(r){return !isMB(r);})));
   var missing=rows.filter(function(r){return num(r.sales)===null;}).map(function(r){return r.name;});
   var tk=(w.takeaways||autoTake(seq))[0];
-  var h='<div class="card glass t-green rise">'+(tk?'<p class="take"><b>'+esc(tk[0])+'</b> '+esc(tk[1])+'</p>':'<p class="take">'+esc(w.label)+'</p>')+(missing.length?'<div class="partial">Partial week. Missing '+esc(missing.join(', '))+'.</div>':'')+'</div>';
+  var h='<div class="pkg-h">Morning Belle + Blue Porch | Dashboard | '+esc(w.label)+' | '+esc(w.dates)+'</div><div class="card glass t-green rise">'+(tk?'<p class="take"><b>'+esc(tk[0])+'</b> '+esc(tk[1])+'</p>':'<p class="take">'+esc(w.label)+'</p>')+(missing.length?'<div class="partial">Partial week. Missing '+esc(missing.join(', '))+'.</div>':'')+'</div>';
   var tile=function(k,v,s,t){return '<div class="tile glass '+t+'"><div class="k">'+k+'</div><div class="v">'+v+'</div><div class="s">'+s+'</div></div>';};
   var lp=ptsf(M.labor,M.laborT), pp=ptsf(M.prime,M.primeT);
   h+='<div class="label d-green rise">Headline</div><div class="tiles rise">'+
@@ -782,7 +792,8 @@ function renderDash(){
   var mr=(DATA.mbReviews||[]).filter(function(x){return x.week_seq===seq;})[0];
   var RL=rows.map(function(r){return {name:r.name,row:r,kind:isMB(r)?'r':'bp'};});
   if(mr) RL.push({name:'Morning Belle total',row:mr,kind:'tot'});
-  h+='<div class="label d-amber rise">Reviews</div><div class="card glass t-yellow rise"><p class="note">60 day reviews. Goals are a 4.3 average, 8% or less 1 to 2 star, and 95% or more Toast.</p>'+grid([
+  var noRev=!mr&&rows.every(function(r){return num(r.star_avg)==null;})?' noprint':'';
+  h+='<div class="label d-amber rise'+noRev+'">Reviews</div><div class="card glass t-yellow rise'+noRev+'"><p class="note">60 day reviews. Goals are a 4.3 average, 8% or less 1 to 2 star, and 95% or more Toast.</p>'+grid([
     {h:'Restaurant',v:function(l){return V(esc(l.name));}},
     {h:'Avg stars',v:function(l){var a=num(l.row.star_avg);return V(a==null?'n/a':a.toFixed(1),a==null?'mut':(a>=4.3?'ok':'bad'));}},
     {h:'1 to 2 star',v:function(l){var a=num(l.row.one_two_star);return V(pct(a),a==null?'mut':(a<=.08?'ok':'bad'));}},
