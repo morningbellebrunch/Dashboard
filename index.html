@@ -245,6 +245,21 @@ html[data-theme="dark"] .tip{background:rgba(16,34,41,.96);color:#eef6f8}
 .tip .h{font-weight:700;margin-bottom:2px}
 .empty{padding:40px 10px;text-align:center;color:var(--ink-soft);font-size:13px}
 
+/* Records */
+#p-records .rk{display:flex;align-items:flex-start;gap:14px;padding:16px 18px;border-radius:22px;margin-bottom:10px;transition:transform .42s var(--ease-liquid)}
+#p-records .rk:hover{transform:translateY(-3px)}
+#p-records .rk-n{flex:0 0 auto;width:38px;height:38px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:18px;font-weight:700;background:rgba(255,255,255,.45);box-shadow:inset 0 0 0 1px rgba(255,255,255,.65)}
+html[data-theme="dark"] #p-records .rk-n{background:rgba(255,255,255,.07);box-shadow:inset 0 0 0 1px rgba(255,255,255,.1)}
+#p-records .rk-b{flex:1;min-width:0}
+#p-records .rk-top{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+#p-records .rk-name{font-family:var(--serif);font-size:18px;font-weight:600}
+#p-records .rk-amt{margin-left:auto;font-size:21px;font-weight:700;font-variant-numeric:lining-nums tabular-nums}
+#p-records .rk-date{font-size:12px;color:var(--ink-soft);font-weight:500;margin-top:3px}
+#p-records .rk-prev{font-size:11.5px;color:var(--ink-faint);margin-top:8px;padding-top:8px;border-top:1px solid var(--hairline);font-variant-numeric:tabular-nums}
+#p-records .chip{font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:3px 8px;border-radius:999px;color:#8a5a06;background:rgba(251,175,65,.3);box-shadow:inset 0 0 0 1px rgba(251,175,65,.45)}
+html[data-theme="dark"] #p-records .chip{color:#ffd79a;background:rgba(251,175,65,.18)}
+@media (max-width:640px){#p-records .rk{padding:14px}#p-records .rk-amt{margin-left:0;width:100%;font-size:20px}}
+
 /* Pages and entrance */
 .page{display:none}
 .page.on{display:block}
@@ -265,7 +280,7 @@ html[data-theme="dark"] .dock-pill{background:rgba(var(--tint),.28);box-shadow:i
 .di:active{transform:scale(.9)}
 .di[aria-current="page"]{color:var(--dock-c)}
 .dock.min .di:not([aria-current="page"]){width:0;opacity:0;overflow:hidden;pointer-events:none}
-.di[data-c="teal"]{--dock-c:#3c5c68} .di[data-c="yellow"]{--dock-c:#9a7a08} html[data-theme="dark"] .di[data-c="yellow"]{--dock-c:#ffde5c} .di[data-c="green"]{--dock-c:#5a8a2a} .di[data-c="sage"]{--dock-c:#4f8a7f}
+.di[data-c="teal"]{--dock-c:#3c5c68} .di[data-c="yellow"]{--dock-c:#9a7a08} html[data-theme="dark"] .di[data-c="yellow"]{--dock-c:#ffde5c} .di[data-c="green"]{--dock-c:#5a8a2a} .di[data-c="sage"]{--dock-c:#4f8a7f} .di[data-c="coral"]{--dock-c:#c0462f} html[data-theme="dark"] .di[data-c="coral"]{--dock-c:#fc826d}
 html[data-theme="dark"] .di[data-c="teal"]{--dock-c:#a9c9d3} html[data-theme="dark"] .di[data-c="green"]{--dock-c:#b9e08a} html[data-theme="dark"] .di[data-c="sage"]{--dock-c:#9bc4bc}
 
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition-duration:.01ms!important}}
@@ -278,7 +293,7 @@ html[data-theme="dark"] .di[data-c="teal"]{--dock-c:#a9c9d3} html[data-theme="da
   .canvas,.hdr,.dock,.hero,.toolbar,.page:not(.on),.ctrl,.tip{display:none!important}
   .page.on{display:block!important}
   body.pkg #p-exec,body.pkg #p-mtd,body.pkg #p-dash{display:block!important}
-  body.pkg #p-trends,body.pkg .ph,.noprint{display:none!important}
+  body.pkg #p-trends,body.pkg #p-records,body.pkg .ph,.noprint{display:none!important}
   body.pkg #p-mtd,body.pkg #p-dash{break-before:page;page-break-before:always}
   body.pkg .pkg-h{display:block;font-family:var(--serif);font-size:14pt;font-weight:600;color:#222;border-bottom:1.5px solid #222;padding-bottom:6px;margin-bottom:12px}
   .ph{display:block;font-family:var(--serif);font-size:14pt;font-weight:600;color:#222;border-bottom:1.5px solid #222;padding-bottom:6px;margin-bottom:12px}
@@ -365,6 +380,18 @@ html[data-theme="dark"] .di[data-c="teal"]{--dock-c:#a9c9d3} html[data-theme="da
     <article class="sheet glass t-yellow rise" id="mtd"></article>
   </section>
 
+  <section class="page" id="p-records" aria-label="Sales records">
+    <div class="label d-green rise">Single day records</div>
+  <div class="rk glass t-green rise"><div class="rk-n">1</div><div class="rk-b"><div class="rk-top"><span class="rk-name">East Beltline</span><span class="rk-amt">$13,976</span></div><div class="rk-date">Sun May 10, 2026</div><div class="rk-prev">Second highest $11,763</div></div></div>
+  <div class="rk glass t-teal rise"><div class="rk-n">2</div><div class="rk-b"><div class="rk-top"><span class="rk-name">Blue Porch</span><span class="rk-amt">$11,180</span></div><div class="rk-date">Sat Nov 9, 2024</div><div class="rk-prev">Second highest $10,577, Sat Nov 2, 2024</div></div></div>
+  <div class="rk glass t-sage rise"><div class="rk-n">3</div><div class="rk-b"><div class="rk-top"><span class="rk-name">Standale</span><span class="rk-amt">$11,068</span></div><div class="rk-date">Sun May 10, 2026</div><div class="rk-prev">Second highest $8,977</div></div></div>
+  <div class="rk glass t-coral rise"><div class="rk-n">4</div><div class="rk-b"><div class="rk-top"><span class="rk-name">Breton</span><span class="rk-amt">$10,934</span></div><div class="rk-date">Sun May 10, 2026</div><div class="rk-prev">Second highest $10,563</div></div></div>
+  <div class="rk glass t-yellow rise"><div class="rk-n">5</div><div class="rk-b"><div class="rk-top"><span class="rk-name">Bridge St</span><span class="chip">New</span><span class="rk-amt">$8,387</span></div><div class="rk-date">Sun Oct 18, 2026</div><div class="rk-prev">Second highest $7,918, Sun Oct 20, 2024</div></div></div>
+    <div class="card glass t-sage rise">
+      <p class="take"><b>Closest race.</b> Standale and Blue Porch sit $112 apart. The next big Saturday at either restaurant flips the order.</p>
+    </div>
+  </section>
+
 
   <section class="page" id="p-trends" aria-label="Trends">
     <div class="ctrl glass t-sage rise">
@@ -405,6 +432,7 @@ html[data-theme="dark"] .di[data-c="teal"]{--dock-c:#a9c9d3} html[data-theme="da
   <button class="di" data-p="exec" data-c="teal" data-tint="60,92,104" aria-current="page"><svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2.5"/><path d="M9 8h6M9 12h6M9 16h4"/></svg>Summary</button>
   <button class="di" data-p="dash" data-c="green" data-tint="153,201,97"><svg viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="7" height="7" rx="2"/><rect x="13.5" y="3.5" width="7" height="7" rx="2"/><rect x="3.5" y="13.5" width="7" height="7" rx="2"/><rect x="13.5" y="13.5" width="7" height="7" rx="2"/></svg>Dashboard</button>
   <button class="di" data-p="mtd" data-c="yellow" data-tint="255,222,92"><svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/><path d="M8 14h3M8 17h6"/></svg>Month</button>
+  <button class="di" data-p="records" data-c="coral" data-tint="252,130,109"><svg viewBox="0 0 24 24"><path d="M8 3.5h8v5a4 4 0 0 1-8 0z"/><path d="M8 5H5.5v1.5A3.5 3.5 0 0 0 9 10M16 5h2.5v1.5A3.5 3.5 0 0 1 15 10"/><path d="M12 12.5v4M8.5 20.5h7M9.5 20.5c0-2 1-4 2.5-4s2.5 2 2.5 4"/></svg>Records</button>
   <button class="di" data-p="trends" data-c="sage" data-tint="155,196,188"><svg viewBox="0 0 24 24"><path d="M3.5 19.5h17"/><path d="M5 15l4.5-4.5 3.5 3 6-6.5"/><path d="M15 7h4v4"/></svg>Trends</button>
 </nav>
 
@@ -889,18 +917,19 @@ function placePill(){
   dock.style.setProperty('--tint',a.dataset.tint);
 }
 function setPH(){
-  var w=DATA.weeks[state.week], nm={exec:'Summary',mtd:'Month to date',dash:'Dashboard',trends:'Trends'}[state.page];
+  var w=DATA.weeks[state.week], nm={exec:'Summary',mtd:'Month to date',dash:'Dashboard',records:'Records',trends:'Trends'}[state.page];
   $('#ph').hidden=(state.page==='exec'||state.page==='mtd');
-  $('#ph').textContent='Morning Belle + Blue Porch | '+nm+(state.page==='trends'?'':' | '+w.label+' | '+w.dates);
-  document.title='MB Weekly Performance '+nm+(state.page==='trends'?'':' '+w.label);
+  var noWeek=(state.page==='trends'||state.page==='records');
+  $('#ph').textContent='Morning Belle + Blue Porch | '+nm+(noWeek?'':' | '+w.label+' | '+w.dates);
+  document.title='MB Weekly Performance '+nm+(noWeek?'':' '+w.label);
 }
 function go(p,fromTap){
   var was=state.page; state.page=p;
   dock.querySelectorAll('.di').forEach(function(d){ if(d.dataset.p===p) d.setAttribute('aria-current','page'); else d.removeAttribute('aria-current'); });
   document.querySelectorAll('.page').forEach(function(s){s.classList.toggle('on',s.id==='p-'+p);});
-  $('#week').hidden=p==='trends';
+  $('#week').hidden=(p==='trends'||p==='records');
   $('#rest').hidden=!(p==='exec'||p==='mtd'); setPH();
-  $('#herosub').textContent={exec:'The week on one page. Export it as a PDF to print or send.',mtd:'The period so far, built week by week.',dash:'Every restaurant, every number, for the week you pick.',trends:'Running totals across the weeks you choose.'}[p];
+  $('#herosub').textContent={exec:'The week on one page. Export it as a PDF to print or send.',mtd:'The period so far, built week by week.',dash:'Every restaurant, every number, for the week you pick.',trends:'Running totals across the weeks you choose.',records:'The highest single day at each restaurant, and the day to beat.'}[p];
   if(fromTap){ holdUntil=Date.now()+1100; dock.classList.remove('min'); if(was===p) window.scrollTo({top:0,behavior:'smooth'}); else window.scrollTo(0,0); }
   requestAnimationFrame(placePill);
   if(p==='trends') drawTrend();
