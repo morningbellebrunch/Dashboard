@@ -245,21 +245,6 @@ html[data-theme="dark"] .tip{background:rgba(16,34,41,.96);color:#eef6f8}
 .tip .h{font-weight:700;margin-bottom:2px}
 .empty{padding:40px 10px;text-align:center;color:var(--ink-soft);font-size:13px}
 
-/* Records */
-#p-records .rk{display:flex;align-items:flex-start;gap:14px;padding:16px 18px;border-radius:22px;margin-bottom:10px;transition:transform .42s var(--ease-liquid)}
-#p-records .rk:hover{transform:translateY(-3px)}
-#p-records .rk-n{flex:0 0 auto;width:38px;height:38px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:18px;font-weight:700;background:rgba(255,255,255,.45);box-shadow:inset 0 0 0 1px rgba(255,255,255,.65)}
-html[data-theme="dark"] #p-records .rk-n{background:rgba(255,255,255,.07);box-shadow:inset 0 0 0 1px rgba(255,255,255,.1)}
-#p-records .rk-b{flex:1;min-width:0}
-#p-records .rk-top{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
-#p-records .rk-name{font-family:var(--serif);font-size:18px;font-weight:600}
-#p-records .rk-amt{margin-left:auto;font-size:21px;font-weight:700;font-variant-numeric:lining-nums tabular-nums}
-#p-records .rk-date{font-size:12px;color:var(--ink-soft);font-weight:500;margin-top:3px}
-#p-records .rk-prev{font-size:11.5px;color:var(--ink-faint);margin-top:8px;padding-top:8px;border-top:1px solid var(--hairline);font-variant-numeric:tabular-nums}
-#p-records .chip{font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:3px 8px;border-radius:999px;color:#8a5a06;background:rgba(251,175,65,.3);box-shadow:inset 0 0 0 1px rgba(251,175,65,.45)}
-html[data-theme="dark"] #p-records .chip{color:#ffd79a;background:rgba(251,175,65,.18)}
-@media (max-width:640px){#p-records .rk{padding:14px}#p-records .rk-amt{margin-left:0;width:100%;font-size:20px}}
-
 /* Pages and entrance */
 .page{display:none}
 .page.on{display:block}
@@ -280,8 +265,87 @@ html[data-theme="dark"] .dock-pill{background:rgba(var(--tint),.28);box-shadow:i
 .di:active{transform:scale(.9)}
 .di[aria-current="page"]{color:var(--dock-c)}
 .dock.min .di:not([aria-current="page"]){width:0;opacity:0;overflow:hidden;pointer-events:none}
-.di[data-c="teal"]{--dock-c:#3c5c68} .di[data-c="yellow"]{--dock-c:#9a7a08} html[data-theme="dark"] .di[data-c="yellow"]{--dock-c:#ffde5c} .di[data-c="green"]{--dock-c:#5a8a2a} .di[data-c="sage"]{--dock-c:#4f8a7f} .di[data-c="coral"]{--dock-c:#c0462f} html[data-theme="dark"] .di[data-c="coral"]{--dock-c:#fc826d}
+.di[data-c="teal"]{--dock-c:#3c5c68} .di[data-c="coral"]{--dock-c:#c4553f} html[data-theme="dark"] .di[data-c="coral"]{--dock-c:#fc826d} .di[data-c="yellow"]{--dock-c:#9a7a08} html[data-theme="dark"] .di[data-c="yellow"]{--dock-c:#ffde5c} .di[data-c="green"]{--dock-c:#5a8a2a} .di[data-c="sage"]{--dock-c:#4f8a7f}
 html[data-theme="dark"] .di[data-c="teal"]{--dock-c:#a9c9d3} html[data-theme="dark"] .di[data-c="green"]{--dock-c:#b9e08a} html[data-theme="dark"] .di[data-c="sage"]{--dock-c:#9bc4bc}
+
+/* Leaf Race */
+  .eyebrow { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.16em; color:var(--mb-teal); margin-bottom:.35rem; }
+  html[data-theme="dark"] .eyebrow { color:var(--mb-sage); }
+
+  .callout { border-radius:16px; padding:1rem 1.15rem; margin-bottom:1.1rem; background:rgba(153,201,97,.12); border:1px solid rgba(153,201,97,.32); }
+  .callout b { display:block; font-size:10px; text-transform:uppercase; letter-spacing:.1em; color:#5a8a2a; margin-bottom:4px; }
+  html[data-theme="dark"] .callout b { color:#b9e08a; }
+  .callout p { font-size:12.5px; line-height:1.55; color:var(--ink-soft); }
+
+  .footer { text-align:center; padding:2rem 0 0; font-size:10.5px; color:var(--ink-faint); }
+
+
+  /* ===== LEAF RACE ===== */
+  .race-card { padding:1.3rem 1.2rem 1.1rem; }
+  .leafbox svg { margin-top:.4rem; }
+  .total-row { display:flex; align-items:baseline; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-bottom:.4rem; }
+  .total { font-family:'Playfair Display',serif; font-size:34px; font-weight:600; line-height:1; font-variant-numeric:tabular-nums; }
+  .total-sub { font-size:12px; font-weight:500; color:var(--ink-soft); }
+  .leafbox { max-width:560px; margin:0 auto; }
+  .leaf { width:100%; height:auto; display:block; overflow:visible; }
+  .leaf-empty { fill:rgba(153,201,97,0.20); }
+  html[data-theme="dark"] .leaf-empty { fill:rgba(153,201,97,0.14); }
+  .level-line { stroke:#f0f5f0; stroke-width:1.2; }
+  html[data-theme="dark"] .level-line { stroke:#0b1a20; }
+  .bands { animation:levelRise 1.6s var(--ease-out) .3s both; }
+  @keyframes levelRise { from{transform:translateY(var(--d))} to{transform:none} }
+  .lead-line { fill:none; stroke:var(--ink-faint); stroke-width:.6; }
+  .lead-dot { fill:var(--ink); }
+  .lead-name { font:700 10px 'DM Sans',sans-serif; fill:var(--ink); }
+  .lead-amt { font:500 8.6px 'DM Sans',sans-serif; fill:var(--ink-soft); font-variant-numeric:tabular-nums; }
+  .tip-l { font:700 9px 'DM Sans',sans-serif; fill:#5a8a2a; }
+  html[data-theme="dark"] .tip-l { fill:#b9e08a; }
+  .f-1001{fill:#fc826d} .f-1002{fill:#3c5c68} .f-1003{fill:#fbaf41} .f-1004{fill:#9bc4bc}
+  html[data-theme="dark"] .f-1002{fill:#6ea5b6}
+
+  #p-race .race-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:.8rem; }
+  .rt { --tint:153,201,97; position:relative; isolation:isolate; border-radius:22px; padding:1rem 1rem 1.05rem;
+    background:
+      linear-gradient(168deg,rgba(255,255,255,0.46) 0%,rgba(255,255,255,0.10) 34%,rgba(255,255,255,0) 56%,rgba(255,255,255,0.16) 100%),
+      radial-gradient(130% 80% at 50% 108%,rgba(var(--tint),var(--tint-alpha)) 0%,rgba(var(--tint),0) 78%),
+      linear-gradient(rgba(var(--tint),var(--tint-base)),rgba(var(--tint),var(--tint-base))),
+      var(--surface);
+    backdrop-filter:var(--glass-blur); -webkit-backdrop-filter:var(--glass-blur);
+    box-shadow:var(--glass-edge),0 12px 30px rgba(var(--tint),0.22),0 3px 9px rgba(40,70,84,0.08);
+    transition:transform .42s var(--ease-liquid); }
+  html[data-theme="dark"] .rt { box-shadow:var(--glass-edge),0 12px 30px rgba(0,0,0,0.38),0 0 22px rgba(var(--tint),0.14); }
+  .rt::before { content:''; position:absolute; inset:0; border-radius:inherit; z-index:2; pointer-events:none; opacity:0; transition:opacity .3s ease;
+    background:radial-gradient(140px 100px at var(--mx) var(--my),rgba(255,255,255,var(--specular)) 0%,rgba(255,255,255,0.2) 26%,rgba(255,255,255,0) 62%); }
+  .rt:hover::before { opacity:.7; }
+  .rt > * { position:relative; z-index:3; }
+  .rt::after { content:''; position:absolute; inset:0; border-radius:inherit; padding:1.4px; background:var(--lens-rim);
+    -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0); mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+    -webkit-mask-composite:xor; mask-composite:exclude; opacity:.8; pointer-events:none; z-index:4; }
+  .t-1001{--tint:252,130,109} .t-1002{--tint:60,92,104} .t-1003{--tint:251,175,65} .t-1004{--tint:155,196,188}
+  html[data-theme="dark"] .t-1002{--tint:110,165,182}
+  .rt .eyebrow { margin-bottom:.2rem; }
+  .rt-name { font-family:'Playfair Display',serif; font-size:18px; font-weight:600; line-height:1.15; }
+  .rt-amt { font-size:22px; font-weight:700; margin-top:.35rem; font-variant-numeric:tabular-nums; }
+  .rt-togo { font-size:12px; font-weight:600; color:var(--ink-soft); }
+  .rt.won .rt-togo { color:var(--ink); }
+  .rt.won { box-shadow:var(--glass-edge),0 0 0 3px rgba(255,222,92,0.9),0 12px 30px rgba(var(--tint),0.22); }
+  .meter { height:7px; border-radius:999px; margin-top:.7rem; overflow:hidden; background:rgba(var(--tint),0.22); }
+  .meter i { display:block; height:100%; border-radius:999px; background:rgb(var(--tint)); transform-origin:left; animation:meterGrow 1.2s var(--ease-out) .5s both; }
+  @keyframes meterGrow { from{transform:scaleX(0)} to{transform:none} }
+
+  .goal-row { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.8rem; }
+  .goal-row .glass { margin-bottom:0; }
+  .goal-v { font-family:'Playfair Display',serif; font-size:30px; font-weight:600; line-height:1.1; font-variant-numeric:tabular-nums; }
+  .goal-note { font-size:12px; color:var(--ink-soft); margin-top:.35rem; }
+  .win-banner { margin-top:1rem; }
+
+  @media (max-width:640px) {
+    #p-race .race-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+    .race-card { padding:1.1rem .9rem 1rem; }
+  }
+  @media (prefers-reduced-motion:reduce) { .bands, .meter i { animation:none; } }
+  .goal-row .glass{padding:16px 18px;border-radius:22px}
+  .rt .eyebrow{margin-bottom:.2rem}
 
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition-duration:.01ms!important}}
 
@@ -293,7 +357,7 @@ html[data-theme="dark"] .di[data-c="teal"]{--dock-c:#a9c9d3} html[data-theme="da
   .canvas,.hdr,.dock,.hero,.toolbar,.page:not(.on),.ctrl,.tip{display:none!important}
   .page.on{display:block!important}
   body.pkg #p-exec,body.pkg #p-mtd,body.pkg #p-dash{display:block!important}
-  body.pkg #p-trends,body.pkg #p-records,body.pkg .ph,.noprint{display:none!important}
+  body.pkg #p-trends,body.pkg .ph,.noprint{display:none!important}
   body.pkg #p-mtd,body.pkg #p-dash{break-before:page;page-break-before:always}
   body.pkg .pkg-h{display:block;font-family:var(--serif);font-size:14pt;font-weight:600;color:#222;border-bottom:1.5px solid #222;padding-bottom:6px;margin-bottom:12px}
   .ph{display:block;font-family:var(--serif);font-size:14pt;font-weight:600;color:#222;border-bottom:1.5px solid #222;padding-bottom:6px;margin-bottom:12px}
@@ -324,7 +388,8 @@ html[data-theme="dark"] .di[data-c="teal"]{--dock-c:#a9c9d3} html[data-theme="da
   .lead{margin:0 0 10px} .bars{gap:3px} .bar{font-size:8pt;grid-template-columns:100px 1fr 150px} .bt,.bf{height:8px}
   .sh-tile .v{font-size:14pt!important;margin:1px 0} .sh-tile{padding:6px 9px!important} .sh-tiles{gap:6px!important}
   .sh-sub{margin:2px 0 10px} .sh-rule{margin-bottom:12px} .sheet h3{margin:10px 0 4px!important;font-size:11pt!important}
-  .foot{margin-top:4px;font-size:7.5pt} .pts li{font-size:8.8pt!important;margin-bottom:3px!important;line-height:1.4} .src{margin-top:10px}
+  .foot{margin-top:3px;font-size:7.5pt} .pts li{font-size:8.6pt!important;margin-bottom:2px!important;line-height:1.35} .src{margin-top:6px}
+  .sheet .tbl td,.sheet .tbl th{padding:3px 3px!important}
   .sh-tile{background:#fff!important;box-shadow:none!important;border:1px solid #999;border-radius:4px;padding:8px 10px}
   .sh-tile .v{font-size:17pt;color:#222} .sh-tile .k,.sh-tile .s{color:#444}
   .sheet .tbl{display:block!important} .sheet .rows{display:none!important}
@@ -380,18 +445,22 @@ html[data-theme="dark"] .di[data-c="teal"]{--dock-c:#a9c9d3} html[data-theme="da
     <article class="sheet glass t-yellow rise" id="mtd"></article>
   </section>
 
-  <section class="page" id="p-records" aria-label="Sales records">
-    <div class="label d-green rise">Single day records</div>
-  <div class="rk glass t-green rise"><div class="rk-n">1</div><div class="rk-b"><div class="rk-top"><span class="rk-name">East Beltline</span><span class="rk-amt">$13,976</span></div><div class="rk-date">Sun May 10, 2026</div><div class="rk-prev">Second highest $11,763</div></div></div>
-  <div class="rk glass t-teal rise"><div class="rk-n">2</div><div class="rk-b"><div class="rk-top"><span class="rk-name">Blue Porch</span><span class="rk-amt">$11,180</span></div><div class="rk-date">Sat Nov 9, 2024</div><div class="rk-prev">Second highest $10,577, Sat Nov 2, 2024</div></div></div>
-  <div class="rk glass t-sage rise"><div class="rk-n">3</div><div class="rk-b"><div class="rk-top"><span class="rk-name">Standale</span><span class="rk-amt">$11,068</span></div><div class="rk-date">Sun May 10, 2026</div><div class="rk-prev">Second highest $8,977</div></div></div>
-  <div class="rk glass t-coral rise"><div class="rk-n">4</div><div class="rk-b"><div class="rk-top"><span class="rk-name">Breton</span><span class="rk-amt">$10,934</span></div><div class="rk-date">Sun May 10, 2026</div><div class="rk-prev">Second highest $10,563</div></div></div>
-  <div class="rk glass t-yellow rise"><div class="rk-n">5</div><div class="rk-b"><div class="rk-top"><span class="rk-name">Bridge St</span><span class="chip">New</span><span class="rk-amt">$8,387</span></div><div class="rk-date">Sun Oct 18, 2026</div><div class="rk-prev">Second highest $7,918, Sun Oct 20, 2024</div></div></div>
-    <div class="card glass t-sage rise">
-      <p class="take"><b>Closest race.</b> Standale and Blue Porch sit $112 apart. The next big Saturday at either restaurant flips the order.</p>
+
+  <section class="page" id="p-race" aria-label="Leaf Race">
+    <div class="label d-green rise">Standings</div>
+    <div class="glass race-card rise">
+      <div class="total-row"><div><div class="eyebrow">Combined</div><div class="total" id="rTotal">$0</div></div><div class="total-sub" id="rAsof"></div></div>
+      <div class="leafbox" id="rLeafbox"></div>
+      <div id="rBanner"></div>
+    </div>
+    <div class="label d-coral rise">Restaurants</div>
+    <div class="race-grid rise" id="rTiles"></div>
+    <div class="label d-amber rise">Look ahead</div>
+    <div class="goal-row rise">
+      <div class="glass"><div class="eyebrow">November</div><div class="goal-v">$5,000</div><div class="goal-note">Goal per restaurant.</div></div>
+      <div class="glass"><div class="eyebrow">December</div><div class="goal-v">$7,000</div><div class="goal-note">Goal per restaurant.</div></div>
     </div>
   </section>
-
 
   <section class="page" id="p-trends" aria-label="Trends">
     <div class="ctrl glass t-sage rise">
@@ -432,11 +501,11 @@ html[data-theme="dark"] .di[data-c="teal"]{--dock-c:#a9c9d3} html[data-theme="da
   <button class="di" data-p="exec" data-c="teal" data-tint="60,92,104" aria-current="page"><svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2.5"/><path d="M9 8h6M9 12h6M9 16h4"/></svg>Summary</button>
   <button class="di" data-p="dash" data-c="green" data-tint="153,201,97"><svg viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="7" height="7" rx="2"/><rect x="13.5" y="3.5" width="7" height="7" rx="2"/><rect x="3.5" y="13.5" width="7" height="7" rx="2"/><rect x="13.5" y="13.5" width="7" height="7" rx="2"/></svg>Dashboard</button>
   <button class="di" data-p="mtd" data-c="yellow" data-tint="255,222,92"><svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/><path d="M8 14h3M8 17h6"/></svg>Month</button>
-  <button class="di" data-p="records" data-c="coral" data-tint="252,130,109"><svg viewBox="0 0 24 24"><path d="M8 3.5h8v5a4 4 0 0 1-8 0z"/><path d="M8 5H5.5v1.5A3.5 3.5 0 0 0 9 10M16 5h2.5v1.5A3.5 3.5 0 0 1 15 10"/><path d="M12 12.5v4M8.5 20.5h7M9.5 20.5c0-2 1-4 2.5-4s2.5 2 2.5 4"/></svg>Records</button>
+  <button class="di" data-p="race" data-c="coral" data-tint="252,130,109"><svg viewBox="0 0 24 24"><path d="M12 21c-4.5-2.5-7-6-7-10 0-3.5 3-7 7-8 4 1 7 4.5 7 8 0 4-2.5 7.5-7 10z"/><path d="M12 21V8"/></svg>Race</button>
   <button class="di" data-p="trends" data-c="sage" data-tint="155,196,188"><svg viewBox="0 0 24 24"><path d="M3.5 19.5h17"/><path d="M5 15l4.5-4.5 3.5 3 6-6.5"/><path d="M15 7h4v4"/></svg>Trends</button>
 </nav>
 
-<script type="application/json" id="mb-data">{"weeks":{"2026101":{"label":"P10 WK1 26","dates":"Sep 28 to Oct 4, 2026","period":"P10 26","start":"Sep 28","end":"Oct 4, 2026"},"2026102":{"label":"P10 WK2 26","dates":"Oct 5 to 11, 2026","period":"P10 26","takeaways":[["Costs held, sales did not.","Morning Belle beat its prime target by 1.3%, but sales were 8.9% below last year. The lost volume cost roughly four times what cost control saved. Traffic is the lever now."],["East Beltline is the model week.","Only restaurant up vs PY (+1.1%), with labor 3.0% and COGS 1.2% under target. $6,800 in EST Ops Income, 19.5% of sales."],["Blue Porch needs a plan.","Sales down 15.2% vs PY for a second straight week, labor 3.0% over target, and prime at 66.2%, above the 63% benchmark."],["Bridge St is structurally tight.","Over its prime target two weeks running, driven by labor. At $19,400 a week, manager salary alone is 8.4% of sales."],["Breton dropped 22.8% vs PY.","Labor flexed down, but COGS ran 0.85% over as volume fell. Prep pars need to follow traffic."]],"open":"Ops labor and WK1 catering and discounts.","start":"Oct 5","end":"Oct 11, 2026"},"2026103":{"label":"P10 WK3 26","dates":"Oct 12 to 18, 2026","period":"P10 26","start":"Oct 12","end":"Oct 18, 2026","takeaways":[["Best week of the period, and Morning Belle beat last year.","Morning Belle did $106,500, up 1.3% vs last year and 12.1% on the week before. Bridge St (+11.3%) and East Beltline (+5.3%) led. All five restaurants made $18,000 in EST Ops Income, 13.8% of sales."],["Labor flexed with the volume.","Morning Belle labor ran $3,500 under target. East Beltline, Breton and Standale were each about 4% under."],["Bridge St and Blue Porch are still over.","Bridge St labor is over target for a third straight week, even with sales up 11.3% vs last year. Blue Porch is down 10.8% vs last year with prime $1,140 over target."],["Catering showed up.","$2,470 this week: $1,435 at Bridge St and $1,035 at Standale. East Beltline and Breton are still at zero."]],"open":"COGS and reviews carried from WK2 (non inventory week)."}},"rows":[{"id":"2026101-1001","week":"P10 WK1 26","week_seq":2026101,"rest":"1001","name":"East Beltline","concept":"Morning Belle","sales":33416,"py_sales":33322,"dine_in_ppa":null,"lbw_pct":null,"cater_events":null,"to_go":null,"cogs_act":0.22,"cogs_tgt":0.228,"one_two_star":0.0,"star_avg":4.8,"toast_pct":0.98,"gm_mbv":null,"ar_mbv":null,"loyalty_ret":0.07,"nonloyalty_ret":0.04,"guest_count":1893,"total_target":0.3,"addon_pct":0.04,"disc_total":null,"disc_errors":null,"disc_hospitality":null,"disc_team":null,"disc_promos":null,"other_pct":0.207,"weekly_rent":2443,"total_labor_pct":0.36952},{"id":"2026101-1002","week":"P10 WK1 26","week_seq":2026101,"rest":"1002","name":"Bridge St","concept":"Morning Belle","sales":19191,"py_sales":19832,"dine_in_ppa":null,"lbw_pct":null,"cater_events":null,"to_go":null,"cogs_act":0.239,"cogs_tgt":0.226,"one_two_star":0.068,"star_avg":4.6,"toast_pct":0.97,"gm_mbv":null,"ar_mbv":null,"loyalty_ret":0.09,"nonloyalty_ret":0.04,"guest_count":1033,"total_target":0.28,"addon_pct":0.04,"disc_total":null,"disc_errors":null,"disc_hospitality":null,"disc_team":null,"disc_promos":null,"other_pct":0.291,"weekly_rent":1183,"total_labor_pct":0.359144},{"id":"2026101-1003","week":"P10 WK1 26","week_seq":2026101,"rest":"1003","name":"Breton","concept":"Morning Belle","sales":24578,"py_sales":22685,"dine_in_ppa":null,"lbw_pct":null,"cater_events":null,"to_go":null,"cogs_act":0.237,"cogs_tgt":0.233,"one_two_star":0.043,"star_avg":4.7,"toast_pct":0.98,"gm_mbv":null,"ar_mbv":null,"loyalty_ret":0.1,"nonloyalty_ret":0.05,"guest_count":1367,"total_target":0.28,"addon_pct":0.04,"disc_total":null,"disc_errors":null,"disc_hospitality":null,"disc_team":null,"disc_promos":null,"other_pct":0.191,"weekly_rent":2233,"total_labor_pct":0.285858},{"id":"2026101-1004","week":"P10 WK1 26","week_seq":2026101,"rest":"1004","name":"Standale","concept":"Morning Belle","sales":21590,"py_sales":26497,"dine_in_ppa":null,"lbw_pct":null,"cater_events":null,"to_go":null,"cogs_act":0.214,"cogs_tgt":0.223,"one_two_star":0.018,"star_avg":4.8,"toast_pct":0.98,"gm_mbv":null,"ar_mbv":null,"loyalty_ret":0.11,"nonloyalty_ret":0.05,"guest_count":1147,"total_target":0.28,"addon_pct":0.04,"disc_total":null,"disc_errors":null,"disc_hospitality":null,"disc_team":null,"disc_promos":null,"other_pct":0.228,"weekly_rent":4085,"total_labor_pct":0.303537},{"id":"2026101-1503","week":"P10 WK1 26","week_seq":2026101,"rest":"1503","name":"Blue Porch","concept":"Blue Porch","sales":24300,"py_sales":29671,"dine_in_ppa":null,"lbw_pct":null,"cater_events":null,"to_go":null,"cogs_act":null,"cogs_tgt":0.28,"one_two_star":0.062,"star_avg":4.5,"toast_pct":0.98,"gm_mbv":null,"ar_mbv":null,"loyalty_ret":0.21,"nonloyalty_ret":0.09,"guest_count":2111,"total_target":0.28,"addon_pct":0.04,"disc_total":null,"disc_errors":null,"disc_hospitality":null,"disc_team":null,"disc_promos":null,"other_pct":0.212,"weekly_rent":2395,"total_labor_pct":0.336399},{"id":"2026102-1001","week":"P10 WK2 26","week_seq":2026102,"rest":"1001","name":"East Beltline","concept":"Morning Belle","sales":34720.59,"py_sales":34339.91,"dine_in_ppa":null,"lbw_pct":null,"cater_events":0.0,"to_go":null,"cogs_act":0.2174,"cogs_tgt":0.2295,"one_two_star":0.0,"star_avg":4.8,"toast_pct":0.98,"gm_mbv":null,"ar_mbv":null,"loyalty_ret":0.07,"nonloyalty_ret":0.04,"guest_count":1892,"total_target":0.3,"addon_pct":0.04,"disc_total":675.8,"disc_errors":112.7,"disc_hospitality":16.4,"disc_team":155.96,"disc_promos":390.74,"other_pct":0.207,"weekly_rent":2443,"total_labor_pct":0.309845},{"id":"2026102-1002","week":"P10 WK2 26","week_seq":2026102,"rest":"1002","name":"Bridge St","concept":"Morning Belle","sales":19391.96,"py_sales":20893.16,"dine_in_ppa":null,"lbw_pct":null,"cater_events":180.39,"to_go":null,"cogs_act":0.2528,"cogs_tgt":0.253,"one_two_star":0.068,"star_avg":4.6,"toast_pct":0.97,"gm_mbv":null,"ar_mbv":null,"loyalty_ret":0.09,"nonloyalty_ret":0.04,"guest_count":967,"total_target":0.28,"addon_pct":0.04,"disc_total":404.5,"disc_errors":82.3,"disc_hospitality":59.98,"disc_team":115.54,"disc_promos":146.68,"other_pct":0.291,"weekly_rent":1183,"total_labor_pct":0.330662},{"id":"2026102-1003","week":"P10 WK2 26","week_seq":2026102,"rest":"1003","name":"Breton","concept":"Morning Belle","sales":20151.06,"py_sales":26106.48,"dine_in_ppa":null,"lbw_pct":null,"cater_events":0.0,"to_go":null,"cogs_act":0.2443,"cogs_tgt":0.2358,"one_two_star":0.043,"star_avg":4.7,"toast_pct":0.98,"gm_mbv":null,"ar_mbv":null,"loyalty_ret":0.1,"nonloyalty_ret":0.05,"guest_count":1158,"total_target":0.28,"addon_pct":0.04,"disc_total":1205.16,"disc_errors":411.95,"disc_hospitality":75.08,"disc_team":170.04,"disc_promos":548.09,"other_pct":0.191,"weekly_rent":2233,"total_labor_pct":0.314931},{"id":"2026102-1004","week":"P10 WK2 26","week_seq":2026102,"rest":"1004","name":"Standale","concept":"Morning Belle","sales":20731.05,"py_sales":22930.83,"dine_in_ppa":null,"lbw_pct":null,"cater_events":0.0,"to_go":null,"cogs_act":0.2016,"cogs_tgt":0.2108,"one_two_star":0.018,"star_avg":4.8,"toast_pct":0.98,"gm_mbv":null,"ar_mbv":null,"loyalty_ret":0.11,"nonloyalty_ret":0.05,"guest_count":1118,"total_target":0.28,"addon_pct":0.04,"disc_total":918.12,"disc_errors":92.9,"disc_hospitality":73.68,"disc_team":330.25,"disc_promos":421.29,"other_pct":0.228,"weekly_rent":4085,"total_labor_pct":0.325746},{"id":"2026102-1503","week":"P10 WK2 26","week_seq":2026102,"rest":"1503","name":"Blue Porch","concept":"Blue Porch","sales":24074.38,"py_sales":28373.09,"dine_in_ppa":null,"lbw_pct":null,"cater_events":0.0,"to_go":null,"cogs_act":0.312,"cogs_tgt":0.28,"one_two_star":0.062,"star_avg":4.5,"toast_pct":0.98,"gm_mbv":null,"ar_mbv":null,"loyalty_ret":0.21,"nonloyalty_ret":0.09,"guest_count":1036,"total_target":0.28,"addon_pct":0.04,"disc_total":525.4,"disc_errors":0,"disc_hospitality":20.0,"disc_team":84.6,"disc_promos":420.8,"other_pct":0.212,"weekly_rent":2395,"total_labor_pct":0.349881},{"id":"2026103-1001","week":"P10 WK3 26","week_seq":2026103,"rest":"1001","name":"East Beltline","concept":"Morning Belle","sales":36174.62,"py_sales":34345.56,"dine_in_ppa":null,"lbw_pct":null,"cater_events":0.0,"to_go":null,"cogs_act":0.2174,"cogs_tgt":0.2295,"one_two_star":0.0,"star_avg":4.8,"toast_pct":0.98,"gm_mbv":null,"ar_mbv":null,"loyalty_ret":0.07,"nonloyalty_ret":0.04,"guest_count":2013,"total_target":0.3,"addon_pct":0.04,"disc_total":851.83,"disc_errors":196.28,"disc_hospitality":0,"disc_team":161.07,"disc_promos":494.48,"other_pct":0.207,"weekly_rent":2443,"total_labor_pct":0.294485},{"id":"2026103-1002","week":"P10 WK3 26","week_seq":2026103,"rest":"1002","name":"Bridge St","concept":"Morning Belle","sales":22013.22,"py_sales":19772.8,"dine_in_ppa":null,"lbw_pct":null,"cater_events":1435.04,"to_go":null,"cogs_act":0.2528,"cogs_tgt":0.253,"one_two_star":0.068,"star_avg":4.6,"toast_pct":0.97,"gm_mbv":null,"ar_mbv":null,"loyalty_ret":0.09,"nonloyalty_ret":0.04,"guest_count":1132,"total_target":0.28,"addon_pct":0.04,"disc_total":843.87,"disc_errors":109.8,"disc_hospitality":137.92,"disc_team":179.21,"disc_promos":416.94,"other_pct":0.291,"weekly_rent":1183,"total_labor_pct":0.330628},{"id":"2026103-1003","week":"P10 WK3 26","week_seq":2026103,"rest":"1003","name":"Breton","concept":"Morning Belle","sales":23818.55,"py_sales":25700.33,"dine_in_ppa":null,"lbw_pct":null,"cater_events":0.0,"to_go":null,"cogs_act":0.2443,"cogs_tgt":0.2358,"one_two_star":0.043,"star_avg":4.7,"toast_pct":0.98,"gm_mbv":null,"ar_mbv":null,"loyalty_ret":0.1,"nonloyalty_ret":0.05,"guest_count":1389,"total_target":0.28,"addon_pct":0.04,"disc_total":886.59,"disc_errors":165.09,"disc_hospitality":46.4,"disc_team":186.42,"disc_promos":488.68,"other_pct":0.191,"weekly_rent":2233,"total_labor_pct":0.28178},{"id":"2026103-1004","week":"P10 WK3 26","week_seq":2026103,"rest":"1004","name":"Standale","concept":"Morning Belle","sales":24481.6,"py_sales":25308.12,"dine_in_ppa":null,"lbw_pct":null,"cater_events":1035.04,"to_go":null,"cogs_act":0.2016,"cogs_tgt":0.2108,"one_two_star":0.018,"star_avg":4.8,"toast_pct":0.98,"gm_mbv":null,"ar_mbv":null,"loyalty_ret":0.11,"nonloyalty_ret":0.05,"guest_count":1335,"total_target":0.28,"addon_pct":0.04,"disc_total":1065.64,"disc_errors":152.49,"disc_hospitality":88.9,"disc_team":317.62,"disc_promos":506.63,"other_pct":0.228,"weekly_rent":4085,"total_labor_pct":0.272187},{"id":"2026103-1503","week":"P10 WK3 26","week_seq":2026103,"rest":"1503","name":"Blue Porch","concept":"Blue Porch","sales":23745.99,"py_sales":26617.24,"dine_in_ppa":null,"lbw_pct":null,"cater_events":0.0,"to_go":null,"cogs_act":0.312,"cogs_tgt":0.28,"one_two_star":0.062,"star_avg":4.5,"toast_pct":0.98,"gm_mbv":null,"ar_mbv":null,"loyalty_ret":0.21,"nonloyalty_ret":0.09,"guest_count":1036,"total_target":0.28,"addon_pct":0.04,"disc_total":678.34,"disc_errors":29.9,"disc_hospitality":0,"disc_team":44.74,"disc_promos":603.7,"other_pct":0.212,"weekly_rent":2395,"total_labor_pct":0.336098}],"mbReviews":[{"week":"P10 WK1 26","week_seq":2026101,"one_two_star":0.031,"star_avg":4.7,"toast_pct":0.98},{"week":"P10 WK2 26","week_seq":2026102,"one_two_star":0.031,"star_avg":4.7,"toast_pct":0.98},{"week":"P10 WK3 26","week_seq":2026103,"one_two_star":0.031,"star_avg":4.7,"toast_pct":0.98}],"periods":{"P10 26":{"2026102":[["Sales are the story.","Morning Belle is 6.2% behind last year for the period, about $12,800, and all five restaurants together are 8.5% behind, about $22,500."],["Costs are on plan.","Morning Belle prime is 55.3% against a 55.9% target, with labor and COGS both at or under target."],["East Beltline carries the period.","The only restaurant ahead of last year (+0.7%), and $11,200 of Morning Belle's $23,200 EST Ops Income, nearly half."],["Blue Porch is the soft spot.","Down 16.7% vs last year with prime at 65.5% against a 60% target, about $2,700 over for the period, and the only restaurant over the 63% benchmark."]],"2026103":[["The period has turned positive on cost.","All five restaurants are $1,272 under prime target for the period, after running over through WK2. Morning Belle alone is $3,958 under for WK3."],["WK3 was the best week of the period.","$130,200 in sales and $18,000 in EST Ops Income, and Morning Belle's first week ahead of last year (+1.3%). The period gap has narrowed to 3.7% behind for Morning Belle."],["Blue Porch is now the sales story.","Down 10.8% vs last year in WK3, its third straight double digit decline. It accounts for $12,500 of the $24,000 the five restaurants trail last year for the period."],["Two restaurants carry the overage.","Blue Porch is $3,808 over prime target for the period and Bridge St $1,180 over, labor driven at both. Everyone else is under."],["Catering is starting.","$2,650 for the period, all from Bridge St and Standale."]]}}}</script>
+<script type="application/json" id="mb-data">{"weeks":{"2026101":{"label":"P10 WK1 26","dates":"Sep 28 to Oct 4, 2026","period":"P10 26","start":"Sep 28","end":"Oct 4, 2026"},"2026102":{"label":"P10 WK2 26","dates":"Oct 5 to 11, 2026","period":"P10 26","takeaways":[["Costs held, sales did not.","Morning Belle beat its prime target by 1.3%, but sales were 8.9% below last year. The lost volume cost roughly four times what cost control saved. Traffic is the lever now."],["East Beltline is the model week.","Only restaurant up vs PY (+1.1%), with labor 3.0% and COGS 1.2% under target. $6,300 in EST Ops Income, 18.0% of sales."],["Blue Porch needs a plan.","Sales down 15.2% vs PY for a second straight week, labor 3.0% over target, and prime at 66.2%, above the 63% benchmark."],["Bridge St is structurally tight.","Over its prime target two weeks running, driven by labor. At $19,400 a week, manager salary alone is 8.4% of sales."],["Breton dropped 22.8% vs PY.","Labor flexed down, but COGS ran 0.85% over as volume fell. Prep pars need to follow traffic."]],"open":"Ops labor and WK1 catering and discounts.","start":"Oct 5","end":"Oct 11, 2026"},"2026103":{"label":"P10 WK3 26","dates":"Oct 12 to 18, 2026","period":"P10 26","start":"Oct 12","end":"Oct 18, 2026","takeaways":[["Best week of the period, and Morning Belle beat last year.","Morning Belle did $106,500, up 1.3% vs last year and 12.1% on the week before. Bridge St (+11.3%) and East Beltline (+5.3%) led. All five restaurants made $16,000 in EST Ops Income, 12.3% of sales."],["Labor flexed with the volume.","Morning Belle labor ran $3,500 under target. East Beltline, Breton and Standale were each about 4% under."],["Bridge St and Blue Porch are still over.","Bridge St labor is over target for a third straight week, even with sales up 11.3% vs last year. Blue Porch is down 10.8% vs last year with prime $1,140 over target."],["Catering showed up.","$2,470 this week: $1,435 at Bridge St and $1,035 at Standale. East Beltline and Breton are still at zero."]],"open":"COGS and reviews carried from WK2 (non inventory week)."},"2026104":{"label":"P10 WK4 26","dates":"Oct 19 to 25, 2026","start":"Oct 19","end":"Oct 25, 2026","period":"P10 26","takeaways":[["Sales stepped back, labor didn't.","Morning Belle sales were down 1.2% vs last year and 10.3% from WK3. East Beltline was up 15.6% vs last year; Breton was down 17.0%. Labor ran over target at Bridge St, Breton and Standale."],["Overtime is an easy fix.","26.7 overtime hours and $852 in overtime pay across the five restaurants, mostly cooks. Blue Porch had 8.4 hours and Breton 6.1."],["Bridge St missed on both levers.","COGS came in 1.0% over target on the period count and labor was over again, $398 over prime target for the week."],["Toast feedback flagged Breton.","90.9% positive against a 95% goal. Guests called out drinks and pancakes as too sweet and a missing ingredient, which points to recipe consistency."]],"open":"Google reviews carried; Toast feedback is this week's item ratings.","cogs_final":true}},"rows":[{"id":"2026101-1001","week":"P10 WK1 26","week_seq":2026101,"rest":"1001","name":"East Beltline","concept":"Morning Belle","sales":33416,"py_sales":33322,"dine_in_ppa":null,"lbw_pct":null,"cater_events":370.0,"to_go":null,"cogs_act":0.22,"cogs_tgt":0.228,"one_two_star":0.0,"star_avg":4.8,"toast_pct":0.98,"gm_mbv":null,"ar_mbv":null,"loyalty_ret":0.07,"nonloyalty_ret":0.04,"guest_count":1893,"total_target":0.3,"addon_pct":0.04,"disc_total":null,"disc_errors":null,"disc_hospitality":null,"disc_team":null,"disc_promos":null,"other_pct":0.207,"weekly_rent":2443,"paper_pct":0.015,"total_labor_pct":0.36952},{"id":"2026101-1002","week":"P10 WK1 26","week_seq":2026101,"rest":"1002","name":"Bridge St","concept":"Morning Belle","sales":19191,"py_sales":19832,"dine_in_ppa":null,"lbw_pct":null,"cater_events":0.0,"to_go":null,"cogs_act":0.239,"cogs_tgt":0.226,"one_two_star":0.068,"star_avg":4.6,"toast_pct":0.97,"gm_mbv":null,"ar_mbv":null,"loyalty_ret":0.09,"nonloyalty_ret":0.04,"guest_count":1033,"total_target":0.28,"addon_pct":0.04,"disc_total":null,"disc_errors":null,"disc_hospitality":null,"disc_team":null,"disc_promos":null,"other_pct":0.291,"weekly_rent":1183,"paper_pct":0.015,"total_labor_pct":0.359144},{"id":"2026101-1003","week":"P10 WK1 26","week_seq":2026101,"rest":"1003","name":"Breton","concept":"Morning Belle","sales":24578,"py_sales":22685,"dine_in_ppa":null,"lbw_pct":null,"cater_events":0.0,"to_go":null,"cogs_act":0.237,"cogs_tgt":0.233,"one_two_star":0.043,"star_avg":4.7,"toast_pct":0.98,"gm_mbv":null,"ar_mbv":null,"loyalty_ret":0.1,"nonloyalty_ret":0.05,"guest_count":1367,"total_target":0.28,"addon_pct":0.04,"disc_total":null,"disc_errors":null,"disc_hospitality":null,"disc_team":null,"disc_promos":null,"other_pct":0.191,"weekly_rent":2233,"paper_pct":0.015,"total_labor_pct":0.285858},{"id":"2026101-1004","week":"P10 WK1 26","week_seq":2026101,"rest":"1004","name":"Standale","concept":"Morning Belle","sales":21590,"py_sales":26497,"dine_in_ppa":null,"lbw_pct":null,"cater_events":431.78,"to_go":null,"cogs_act":0.214,"cogs_tgt":0.223,"one_two_star":0.018,"star_avg":4.8,"toast_pct":0.98,"gm_mbv":null,"ar_mbv":null,"loyalty_ret":0.11,"nonloyalty_ret":0.05,"guest_count":1147,"total_target":0.28,"addon_pct":0.04,"disc_total":null,"disc_errors":null,"disc_hospitality":null,"disc_team":null,"disc_promos":null,"other_pct":0.228,"weekly_rent":4085,"paper_pct":0.015,"total_labor_pct":0.303537},{"id":"2026101-1503","week":"P10 WK1 26","week_seq":2026101,"rest":"1503","name":"Blue Porch","concept":"Blue Porch","sales":24300,"py_sales":29671,"dine_in_ppa":null,"lbw_pct":null,"cater_events":0.0,"to_go":null,"cogs_act":null,"cogs_tgt":0.28,"one_two_star":0.062,"star_avg":4.5,"toast_pct":0.98,"gm_mbv":null,"ar_mbv":null,"loyalty_ret":0.21,"nonloyalty_ret":0.09,"guest_count":2111,"total_target":0.28,"addon_pct":0.04,"disc_total":null,"disc_errors":null,"disc_hospitality":null,"disc_team":null,"disc_promos":null,"other_pct":0.212,"weekly_rent":2395,"paper_pct":0.015,"total_labor_pct":0.336399},{"id":"2026102-1001","week":"P10 WK2 26","week_seq":2026102,"rest":"1001","name":"East Beltline","concept":"Morning Belle","sales":34720.59,"py_sales":34339.91,"dine_in_ppa":null,"lbw_pct":null,"cater_events":0.0,"to_go":null,"cogs_act":0.2174,"cogs_tgt":0.2295,"one_two_star":0.0,"star_avg":4.8,"toast_pct":0.98,"gm_mbv":null,"ar_mbv":null,"loyalty_ret":0.07,"nonloyalty_ret":0.04,"guest_count":1892,"total_target":0.3,"addon_pct":0.04,"disc_total":675.8,"disc_errors":112.7,"disc_hospitality":16.4,"disc_team":155.96,"disc_promos":390.74,"other_pct":0.207,"weekly_rent":2443,"paper_pct":0.015,"total_labor_pct":0.309845},{"id":"2026102-1002","week":"P10 WK2 26","week_seq":2026102,"rest":"1002","name":"Bridge St","concept":"Morning Belle","sales":19391.96,"py_sales":20893.16,"dine_in_ppa":null,"lbw_pct":null,"cater_events":180.39,"to_go":null,"cogs_act":0.2528,"cogs_tgt":0.253,"one_two_star":0.068,"star_avg":4.6,"toast_pct":0.97,"gm_mbv":null,"ar_mbv":null,"loyalty_ret":0.09,"nonloyalty_ret":0.04,"guest_count":967,"total_target":0.28,"addon_pct":0.04,"disc_total":404.5,"disc_errors":82.3,"disc_hospitality":59.98,"disc_team":115.54,"disc_promos":146.68,"other_pct":0.291,"weekly_rent":1183,"paper_pct":0.015,"total_labor_pct":0.330662},{"id":"2026102-1003","week":"P10 WK2 26","week_seq":2026102,"rest":"1003","name":"Breton","concept":"Morning Belle","sales":20151.06,"py_sales":26106.48,"dine_in_ppa":null,"lbw_pct":null,"cater_events":0.0,"to_go":null,"cogs_act":0.2443,"cogs_tgt":0.2358,"one_two_star":0.043,"star_avg":4.7,"toast_pct":0.98,"gm_mbv":null,"ar_mbv":null,"loyalty_ret":0.1,"nonloyalty_ret":0.05,"guest_count":1158,"total_target":0.28,"addon_pct":0.04,"disc_total":1205.16,"disc_errors":411.95,"disc_hospitality":75.08,"disc_team":170.04,"disc_promos":548.09,"other_pct":0.191,"weekly_rent":2233,"paper_pct":0.015,"total_labor_pct":0.314931},{"id":"2026102-1004","week":"P10 WK2 26","week_seq":2026102,"rest":"1004","name":"Standale","concept":"Morning Belle","sales":20731.05,"py_sales":22930.83,"dine_in_ppa":null,"lbw_pct":null,"cater_events":0.0,"to_go":null,"cogs_act":0.2016,"cogs_tgt":0.2108,"one_two_star":0.018,"star_avg":4.8,"toast_pct":0.98,"gm_mbv":null,"ar_mbv":null,"loyalty_ret":0.11,"nonloyalty_ret":0.05,"guest_count":1118,"total_target":0.28,"addon_pct":0.04,"disc_total":918.12,"disc_errors":92.9,"disc_hospitality":73.68,"disc_team":330.25,"disc_promos":421.29,"other_pct":0.228,"weekly_rent":4085,"paper_pct":0.015,"total_labor_pct":0.325746},{"id":"2026102-1503","week":"P10 WK2 26","week_seq":2026102,"rest":"1503","name":"Blue Porch","concept":"Blue Porch","sales":24074.38,"py_sales":28373.09,"dine_in_ppa":null,"lbw_pct":null,"cater_events":0.0,"to_go":null,"cogs_act":0.312,"cogs_tgt":0.28,"one_two_star":0.062,"star_avg":4.5,"toast_pct":0.98,"gm_mbv":null,"ar_mbv":null,"loyalty_ret":0.21,"nonloyalty_ret":0.09,"guest_count":1036,"total_target":0.28,"addon_pct":0.04,"disc_total":525.4,"disc_errors":0,"disc_hospitality":20.0,"disc_team":84.6,"disc_promos":420.8,"other_pct":0.212,"weekly_rent":2395,"paper_pct":0.015,"total_labor_pct":0.349881},{"id":"2026103-1001","week":"P10 WK3 26","week_seq":2026103,"rest":"1001","name":"East Beltline","concept":"Morning Belle","sales":36174.62,"py_sales":34345.56,"dine_in_ppa":null,"lbw_pct":null,"cater_events":0.0,"to_go":null,"cogs_act":0.2174,"cogs_tgt":0.2295,"one_two_star":0.0,"star_avg":4.8,"toast_pct":0.98,"gm_mbv":null,"ar_mbv":null,"loyalty_ret":0.07,"nonloyalty_ret":0.04,"guest_count":2013,"total_target":0.3,"addon_pct":0.04,"disc_total":851.83,"disc_errors":196.28,"disc_hospitality":0,"disc_team":161.07,"disc_promos":494.48,"other_pct":0.207,"weekly_rent":2443,"paper_pct":0.015,"total_labor_pct":0.294485},{"id":"2026103-1002","week":"P10 WK3 26","week_seq":2026103,"rest":"1002","name":"Bridge St","concept":"Morning Belle","sales":22013.22,"py_sales":19772.8,"dine_in_ppa":null,"lbw_pct":null,"cater_events":1435.04,"to_go":null,"cogs_act":0.2528,"cogs_tgt":0.253,"one_two_star":0.068,"star_avg":4.6,"toast_pct":0.97,"gm_mbv":null,"ar_mbv":null,"loyalty_ret":0.09,"nonloyalty_ret":0.04,"guest_count":1132,"total_target":0.28,"addon_pct":0.04,"disc_total":843.87,"disc_errors":109.8,"disc_hospitality":137.92,"disc_team":179.21,"disc_promos":416.94,"other_pct":0.291,"weekly_rent":1183,"paper_pct":0.015,"total_labor_pct":0.330628},{"id":"2026103-1003","week":"P10 WK3 26","week_seq":2026103,"rest":"1003","name":"Breton","concept":"Morning Belle","sales":23818.55,"py_sales":25700.33,"dine_in_ppa":null,"lbw_pct":null,"cater_events":0.0,"to_go":null,"cogs_act":0.2443,"cogs_tgt":0.2358,"one_two_star":0.043,"star_avg":4.7,"toast_pct":0.98,"gm_mbv":null,"ar_mbv":null,"loyalty_ret":0.1,"nonloyalty_ret":0.05,"guest_count":1389,"total_target":0.28,"addon_pct":0.04,"disc_total":886.59,"disc_errors":165.09,"disc_hospitality":46.4,"disc_team":186.42,"disc_promos":488.68,"other_pct":0.191,"weekly_rent":2233,"paper_pct":0.015,"total_labor_pct":0.28178},{"id":"2026103-1004","week":"P10 WK3 26","week_seq":2026103,"rest":"1004","name":"Standale","concept":"Morning Belle","sales":24481.6,"py_sales":25308.12,"dine_in_ppa":null,"lbw_pct":null,"cater_events":1035.04,"to_go":null,"cogs_act":0.2016,"cogs_tgt":0.2108,"one_two_star":0.018,"star_avg":4.8,"toast_pct":0.98,"gm_mbv":null,"ar_mbv":null,"loyalty_ret":0.11,"nonloyalty_ret":0.05,"guest_count":1335,"total_target":0.28,"addon_pct":0.04,"disc_total":1065.64,"disc_errors":152.49,"disc_hospitality":88.9,"disc_team":317.62,"disc_promos":506.63,"other_pct":0.228,"weekly_rent":4085,"paper_pct":0.015,"total_labor_pct":0.272187},{"id":"2026103-1503","week":"P10 WK3 26","week_seq":2026103,"rest":"1503","name":"Blue Porch","concept":"Blue Porch","sales":23745.99,"py_sales":26617.24,"dine_in_ppa":null,"lbw_pct":null,"cater_events":0.0,"to_go":null,"cogs_act":0.312,"cogs_tgt":0.28,"one_two_star":0.062,"star_avg":4.5,"toast_pct":0.98,"gm_mbv":null,"ar_mbv":null,"loyalty_ret":0.21,"nonloyalty_ret":0.09,"guest_count":1036,"total_target":0.28,"addon_pct":0.04,"disc_total":678.34,"disc_errors":29.9,"disc_hospitality":0,"disc_team":44.74,"disc_promos":603.7,"other_pct":0.212,"weekly_rent":2395,"paper_pct":0.015,"total_labor_pct":0.336098},{"id":"2026104-1001","week":"P10 WK4 26","week_seq":2026104,"rest":"1001","name":"East Beltline","concept":"Morning Belle","sales":35425.89,"py_sales":30637.82,"dine_in_ppa":null,"lbw_pct":null,"cater_events":0.0,"to_go":null,"cogs_act":0.2188,"cogs_tgt":0.2322,"one_two_star":0.0,"star_avg":4.8,"toast_pct":0.961,"gm_mbv":null,"ar_mbv":null,"loyalty_ret":0.07,"nonloyalty_ret":0.04,"guest_count":1987,"total_target":0.3,"addon_pct":0.04,"disc_total":1086.87,"disc_errors":206.6,"disc_hospitality":61.9,"disc_team":342.68,"disc_promos":475.69,"other_pct":0.207,"weekly_rent":2443,"paper_pct":0.015,"total_labor_pct":0.319526},{"id":"2026104-1002","week":"P10 WK4 26","week_seq":2026104,"rest":"1002","name":"Bridge St","concept":"Morning Belle","sales":18151.04,"py_sales":19223.25,"dine_in_ppa":null,"lbw_pct":null,"cater_events":0.0,"to_go":null,"cogs_act":0.2336,"cogs_tgt":0.2234,"one_two_star":0.068,"star_avg":4.6,"toast_pct":1.0,"gm_mbv":null,"ar_mbv":null,"loyalty_ret":0.09,"nonloyalty_ret":0.04,"guest_count":918,"total_target":0.28,"addon_pct":0.04,"disc_total":499.29,"disc_errors":186.74,"disc_hospitality":49.62,"disc_team":164.17,"disc_promos":98.76,"other_pct":0.291,"weekly_rent":1183,"paper_pct":0.015,"total_labor_pct":0.331726},{"id":"2026104-1003","week":"P10 WK4 26","week_seq":2026104,"rest":"1003","name":"Breton","concept":"Morning Belle","sales":20114.58,"py_sales":24248.28,"dine_in_ppa":null,"lbw_pct":null,"cater_events":0.0,"to_go":null,"cogs_act":0.2336,"cogs_tgt":0.2335,"one_two_star":0.043,"star_avg":4.7,"toast_pct":0.9091,"gm_mbv":null,"ar_mbv":null,"loyalty_ret":0.1,"nonloyalty_ret":0.05,"guest_count":1162,"total_target":0.28,"addon_pct":0.04,"disc_total":813.38,"disc_errors":225.09,"disc_hospitality":40.7,"disc_team":237.63,"disc_promos":309.96,"other_pct":0.191,"weekly_rent":2233,"paper_pct":0.015,"total_labor_pct":0.331375},{"id":"2026104-1004","week":"P10 WK4 26","week_seq":2026104,"rest":"1004","name":"Standale","concept":"Morning Belle","sales":21820.0,"py_sales":22608.09,"dine_in_ppa":null,"lbw_pct":null,"cater_events":353.49,"to_go":null,"cogs_act":0.2201,"cogs_tgt":0.2234,"one_two_star":0.018,"star_avg":4.8,"toast_pct":1.0,"gm_mbv":null,"ar_mbv":null,"loyalty_ret":0.11,"nonloyalty_ret":0.05,"guest_count":1137,"total_target":0.28,"addon_pct":0.04,"disc_total":1099.27,"disc_errors":153.4,"disc_hospitality":95.0,"disc_team":366.9,"disc_promos":483.97,"other_pct":0.228,"weekly_rent":4085,"paper_pct":0.015,"total_labor_pct":0.335868},{"id":"2026104-1503","week":"P10 WK4 26","week_seq":2026104,"rest":"1503","name":"Blue Porch","concept":"Blue Porch","sales":21398.56,"py_sales":23772.25,"dine_in_ppa":null,"lbw_pct":null,"cater_events":0.0,"to_go":null,"cogs_act":0.29,"cogs_tgt":0.28,"one_two_star":0.062,"star_avg":4.5,"toast_pct":0.98,"gm_mbv":null,"ar_mbv":null,"loyalty_ret":0.21,"nonloyalty_ret":0.09,"guest_count":991,"total_target":0.28,"addon_pct":0.04,"disc_total":444.63,"disc_errors":0,"disc_hospitality":0,"disc_team":41.05,"disc_promos":403.58,"other_pct":0.212,"weekly_rent":2395,"paper_pct":0.015,"total_labor_pct":0.357485}],"mbReviews":[{"week":"P10 WK1 26","week_seq":2026101,"one_two_star":0.031,"star_avg":4.7,"toast_pct":0.98},{"week":"P10 WK2 26","week_seq":2026102,"one_two_star":0.031,"star_avg":4.7,"toast_pct":0.98},{"week":"P10 WK3 26","week_seq":2026103,"one_two_star":0.031,"star_avg":4.7,"toast_pct":0.98},{"week":"P10 WK4 26","week_seq":2026104,"one_two_star":0.031,"star_avg":4.7,"toast_pct":0.9643}],"periods":{"P10 26":{"2026102":[["Sales are the story.","Morning Belle is 6.2% behind last year for the period, about $12,800, and all five restaurants together are 8.5% behind, about $22,500."],["Costs are on plan.","Morning Belle prime is 55.3% against a 55.9% target, with labor and COGS both at or under target."],["East Beltline carries the period.","The only restaurant ahead of last year (+0.7%), and $10,200 of Morning Belle's $20,300 EST Ops Income, nearly half."],["Blue Porch is the soft spot.","Down 16.7% vs last year with prime at 65.5% against a 60% target, about $2,700 over for the period, and the only restaurant over the 63% benchmark."]],"2026103":[["The period has turned positive on cost.","All five restaurants are $1,272 under prime target for the period, after running over through WK2. Morning Belle alone is $3,958 under for WK3."],["WK3 was the best week of the period.","$130,200 in sales and $16,000 in EST Ops Income, and Morning Belle's first week ahead of last year (+1.3%). The period gap has narrowed to 3.7% behind for Morning Belle."],["Blue Porch is now the sales story.","Down 10.8% vs last year in WK3, its third straight double digit decline. It accounts for $12,500 of the $24,000 the five restaurants trail last year for the period."],["Two restaurants carry the overage.","Blue Porch is $3,808 over prime target for the period and Bridge St $1,180 over, labor driven at both. Everyone else is under."],["Catering is starting.","$2,650 for the period, all from Bridge St and Standale."]],"2026104":[["The period finished under target on cost.","All five restaurants came in $1,826 under prime target for the month. Morning Belle was $5,100 under and Blue Porch $3,200 over."],["Sales are still the problem.","Morning Belle finished the month 3.1% behind last year and all five restaurants 5.3% behind. Breton (\u221210.2%) and Standale (\u22129.0%) carry most of Morning Belle's gap."],["East Beltline earned nearly half.","$23,300 of the $49,500 in EST Ops Income for the month, 47%, and the only restaurant ahead of last year (+5.3%)."],["Blue Porch is the month's biggest drag.","$3,200 over prime target and $3,400 in EST Ops Income on $93,500 in sales, 3.6%. Sales were 13.8% behind last year, $14,900 of the five restaurants' $27,600 gap."],["Bridge St is the Morning Belle problem.","The only Morning Belle restaurant over prime target for the period ($2,208), with labor over every week and COGS 1.0% over on the count."]]}},"race":{"goal":3000,"updated":"2026-10-25","sales":[{"id":"pm1001","r":"1001","type":"Product Mix gross, Sep 28 to Oct 25","amt":370.0,"date":"2026-10-25","at":"2026-10-25T12:00:00.000Z"},{"id":"pm1002","r":"1002","type":"Product Mix gross, Sep 28 to Oct 25","amt":1994.5,"date":"2026-10-25","at":"2026-10-25T12:00:00.001Z"},{"id":"pm1004","r":"1004","type":"Product Mix gross, Sep 28 to Oct 25","amt":1819.8,"date":"2026-10-25","at":"2026-10-25T12:00:00.002Z"}]}}</script>
 <script>
 (function(){
 'use strict';
@@ -472,7 +541,7 @@ function agg(rows){
     if(tl!==null){L=s*tl; if(tt!==null) LT=s*(tt+ao); o.labS+=s; o.lab+=L; o.labT+=LT||0;}
     var c=num(r.cogs_act), ct=num(r.cogs_tgt);
     if(c!==null){o.cS+=s;o.cogs+=s*c; if(ct!==null){o.cTS+=s;o.cT+=s*ct;} else o.cMissT++;}
-    if(L!==null && c!==null){o.pS+=s;o.prime+=L+s*c;o.cash+=s-(L+s*c); var op=num(r.other_pct), rn=num(r.weekly_rent); if(op!==null&&rn!==null){o.opS+=s;o.other+=s*op;o.rent+=rn;o.tc+=s-(L+s*c)-s*op;o.oi+=s-(L+s*c)-s*op-rn;} if(LT!==null&&ct!==null) o.pT+=LT+s*ct; else o.pMissT++;}
+    if(L!==null && c!==null){o.pS+=s;var pp=num(r.paper_pct)||0; var PR=L+s*(c+pp); o.prime+=PR;o.cash+=s-PR; var op=num(r.other_pct), rn=num(r.weekly_rent); if(op!==null&&rn!==null){o.opS+=s;o.other+=s*op;o.rent+=rn;o.tc+=s-PR-s*op;o.oi+=s-PR-s*op-rn;} if(LT!==null&&ct!==null) o.pT+=LT+s*(ct+pp); else o.pMissT++;}
   });
   return o;
 }
@@ -625,7 +694,7 @@ function simpleTiles(o){
     t('EST Ops Income',usd(o.opInc),o.opPct==null?'estimate':pct(o.opPct)+' of sales, after rent',o.opInc!=null&&o.opInc<0?'over':'')+
     t('Sales',usd(o.sales),'<span class="'+signCls(o.vsPY)+'">'+sgn(o.vsPY)+'</span> vs last year')+
     t('Labor',pct(o.labor),miss(o.labor,o.laborT),overCls(o.labor,o.laborT))+
-    t('COGS',pct(o.cogs),miss(o.cogs,o.cogsT),overCls(o.cogs,o.cogsT))+
+    t(o.cogsLabel||'COGS',pct(o.cogs),miss(o.cogs,o.cogsT),overCls(o.cogs,o.cogsT))+
     t('Prime',pct(o.prime),miss(o.prime,o.primeT),overCls(o.prime,o.primeT))+
 
     t('Catering sales',o.cater==null?'n/a':usd(o.cater),o.cater==null?'not loaded yet':'Toast catering center')+
@@ -644,7 +713,7 @@ function simpleTable(list){
     {h:'Discounts',v:function(l){return V(l.v.disc?pct(l.v.disc.pct):'n/a',l.v.disc?'':'mut');}}
   ],list);
 }
-var KEY='<div class="foot">Red bold is over target, green is at or under. Labor includes management and 4% for taxes and benefits. Prime is labor plus COGS. EST Ops Income is estimated: sales minus prime, other operating costs at each restaurant\'s P&amp;L rate, and weekly rent.</div>';
+var KEY='<div class="foot">Red bold is over target, green is at or under. Labor includes management and 4% for taxes and benefits. Prime is labor plus COGS plus 1.5% for paper. EST Ops Income is estimated: sales minus prime (including paper), other operating costs at each restaurant\'s P&amp;L rate, and weekly rent.</div>';
 
 /* The lead: prime dollars against target, by restaurant */
 function leadAll(list,total,scopeWord){
@@ -707,8 +776,9 @@ function ptdLine(rs){
     o.n++; o.sales+=s; o.py+=py; o.pyS+=pyS; o.lab+=lab; o.labS+=ls; if(hasT) o.labT+=labT;
     var lc=list.filter(function(r){return num(r.cogs_act)!==null;}).sort(function(a,b){return b.week_seq-a.week_seq;})[0];
     if(lc){var cp=num(lc.cogs_act)*s;o.cogs+=cp;o.cS+=s;var ct=num(lc.cogs_tgt);
-      if(ls===s){o.prime+=lab+cp;o.pS+=s;o.cash+=s-lab-cp; var op=num(list[0].other_pct), rn=num(list[0].weekly_rent); if(op!==null&&rn!==null){o.opS+=s;o.other+=s*op;o.rent+=rn*list.length;o.tc+=s-lab-cp-s*op;o.oi+=s-lab-cp-s*op-rn*list.length;}}
-      if(ct!==null){o.cogsT+=ct*s;o.cTS+=s;if(ls===s&&hasT){o.primeT+=labT+ct*s;o.pTS+=s;}}}
+      var pp=(num(list[0].paper_pct)||0)*s;
+      if(ls===s){o.prime+=lab+cp+pp;o.pS+=s;o.cash+=s-lab-cp-pp; var op=num(list[0].other_pct), rn=num(list[0].weekly_rent); if(op!==null&&rn!==null){o.opS+=s;o.other+=s*op;o.rent+=rn*list.length;o.tc+=s-lab-cp-pp-s*op;o.oi+=s-lab-cp-pp-s*op-rn*list.length;}}
+      if(ct!==null){o.cogsT+=ct*s;o.cTS+=s;if(ls===s&&hasT){o.primeT+=labT+ct*s+pp;o.pTS+=s;}}}
   });
   return {n:o.n,sales:o.n?o.sales:null,vsPY:o.py?o.pyS/o.py-1:null,py:o.py||null,
     labor:o.labS?o.lab/o.labS:null,laborT:o.labS&&o.labT?o.labT/o.labS:null,
@@ -725,14 +795,15 @@ function renderMTD(){
   var range=(first.start&&last.end)?first.start+' to '+last.end:first.dates.split(' to ')[0]+' to '+last.dates.split(' to ')[1];
   var sub='Through '+esc(last.label)+' | '+esc(range)+' | '+ws.length+' week'+(ws.length===1?'':'s');
   var perName=per.replace(/ (\d\d)$/,' 20$1');
+  var cogsFinal=!!DATA.weeks[seq].cogs_final, cogsLbl=cogsFinal?'COGS, full month':'COGS, month to date';
   var h;
   if(state.rest!=='ALL'){
-    var mine=all.filter(function(r){return r.rest===state.rest;}), v=ptdLine(mine);
+    var mine=all.filter(function(r){return r.rest===state.rest;}), v=ptdLine(mine); v.cogsLabel=cogsLbl;
     h='<h2 class="sh-title">'+esc(restName())+', '+esc(perName)+' to date</h2><div class="sh-sub">'+sub+'</div><div class="sh-rule"></div>'+leadOne(v)+simpleTiles(v)+KEY;
     var WL1=ws.map(function(w){var rr=mine.filter(function(r){return r.week_seq===w;});var x=view(agg(rr));x.cater=catOf(rr);x.disc=discOf(rr);return {name:DATA.weeks[w].label,kind:'r',v:x};});
     h+='<h3>Week by week</h3>'+simpleTable(WL1);
   } else {
-    var A=ptdLine(all);
+    var A=ptdLine(all); A.cogsLabel=cogsLbl;
     var rests=[]; all.forEach(function(r){if(!rests.some(function(x){return x.rest===r.rest;}))rests.push(r);}); rests.sort(function(a,b){return a.rest.localeCompare(b.rest);});
     var L=rests.filter(isMB).map(function(r){return {name:r.name,kind:'r',v:ptdLine(all.filter(function(x){return x.rest===r.rest;}))};});
     L.push({name:'Morning Belle total',kind:'tot',v:ptdLine(all.filter(isMB))});
@@ -745,7 +816,7 @@ function renderMTD(){
     var story=(DATA.periods&&DATA.periods[per]&&DATA.periods[per][String(seq)])||null;
     if(story) h+='<h3>The picture so far</h3><ul class="pts">'+story.map(function(p){return '<li><b>'+esc(p[0])+'</b> '+esc(p[1])+'</li>';}).join('')+'</ul>';
   }
-  h+='<div class="src"><span>COGS is period to date from PAR</span><span>Morning Belle | Confidential</span></div>';
+  h+='<div class="src"><span>'+(cogsFinal?'COGS is the final count for the full month from PAR':'COGS is month to date from PAR')+'</span><span>Morning Belle | Confidential</span></div>';
   $('#mtd').innerHTML=h;
 }
 
@@ -785,7 +856,7 @@ function renderDash(){
     {h:'Labor $',v:function(l){return V(l.v.labor!=null&&l.v.sales?usd(l.v.labor*l.v.sales):'n/a');}}
   ],L)+'</div>';
 
-  h+='<div class="label d-coral rise">Prime cost</div><div class="card glass t-coral rise"><p class="note">COGS is period to date, goal within 0.75% of target. Prime is total labor plus COGS. After prime is sales minus prime cost.</p>'+grid([
+  h+='<div class="label d-coral rise">Prime cost</div><div class="card glass t-coral rise"><p class="note">COGS is period to date, goal within 0.75% of target. Prime is total labor plus COGS plus 1.5% of sales for paper, in both actual and target. After prime is sales minus prime cost.</p>'+grid([
     {h:'Restaurant',v:function(l){return V(esc(l.name));}},
     {h:'Prime',v:function(l){var p=ptsf(l.v.prime,l.v.primeT);return V(pct(l.v.prime),p.c==='mut'?'':p.c);}},
     {h:'Prime tgt',v:function(l){return V(pct(l.v.primeT));}},
@@ -917,22 +988,22 @@ function placePill(){
   dock.style.setProperty('--tint',a.dataset.tint);
 }
 function setPH(){
-  var w=DATA.weeks[state.week], nm={exec:'Summary',mtd:'Month to date',dash:'Dashboard',records:'Records',trends:'Trends'}[state.page];
+  var w=DATA.weeks[state.week], nm={exec:'Summary',mtd:'Month to date',dash:'Dashboard',trends:'Trends',race:'Leaf Race'}[state.page];
   $('#ph').hidden=(state.page==='exec'||state.page==='mtd');
-  var noWeek=(state.page==='trends'||state.page==='records');
-  $('#ph').textContent='Morning Belle + Blue Porch | '+nm+(noWeek?'':' | '+w.label+' | '+w.dates);
-  document.title='MB Weekly Performance '+nm+(noWeek?'':' '+w.label);
+  $('#ph').textContent='Morning Belle + Blue Porch | '+nm+((state.page==='trends'||state.page==='race')?'':' | '+w.label+' | '+w.dates);
+  document.title='MB Weekly Performance '+nm+(state.page==='trends'?'':' '+w.label);
 }
 function go(p,fromTap){
   var was=state.page; state.page=p;
   dock.querySelectorAll('.di').forEach(function(d){ if(d.dataset.p===p) d.setAttribute('aria-current','page'); else d.removeAttribute('aria-current'); });
   document.querySelectorAll('.page').forEach(function(s){s.classList.toggle('on',s.id==='p-'+p);});
-  $('#week').hidden=(p==='trends'||p==='records');
+  $('#week').hidden=(p==='trends'||p==='race');
   $('#rest').hidden=!(p==='exec'||p==='mtd'); setPH();
-  $('#herosub').textContent={exec:'The week on one page. Export it as a PDF to print or send.',mtd:'The period so far, built week by week.',dash:'Every restaurant, every number, for the week you pick.',trends:'Running totals across the weeks you choose.',records:'The highest single day at each restaurant, and the day to beat.'}[p];
+  $('#herosub').textContent={race:'First to $3,000 in catering and events takes the leaf.',exec:'The week on one page. Export it as a PDF to print or send.',mtd:'The period so far, built week by week.',dash:'Every restaurant, every number, for the week you pick.',trends:'Running totals across the weeks you choose.'}[p];
   if(fromTap){ holdUntil=Date.now()+1100; dock.classList.remove('min'); if(was===p) window.scrollTo({top:0,behavior:'smooth'}); else window.scrollTo(0,0); }
   requestAnimationFrame(placePill);
   if(p==='trends') drawTrend();
+  if(p==='race') renderRace();
 }
 dock.querySelectorAll('.di').forEach(function(d){ d.addEventListener('click',function(){ if(dock.classList.contains('min')&&d.getAttribute('aria-current')==='page'){dock.classList.remove('min');holdUntil=Date.now()+1100;requestAnimationFrame(placePill);return;} go(d.dataset.p,true); }); });
 
@@ -952,7 +1023,74 @@ function onScroll(){
 window.addEventListener('scroll',function(){ if(!ticking){ticking=true;requestAnimationFrame(onScroll);} },{passive:true});
 dock.addEventListener('transitionend',placePill);
 
-function render(){ if(typeof setPH==='function'&&state.page) setPH(); renderExec(); renderMTD(); renderDash(); if(state.page==='trends') drawTrend(); }
+/* Leaf Race page */
+function renderRace(){
+  var state=DATA.race||{goal:3000,sales:[]};
+  var R=[{id:"1001",name:"East Beltline"},{id:"1002",name:"Bridge St"},{id:"1003",name:"Breton"},{id:"1004",name:"Standale"}];
+  var GOAL=Number(state.goal)||3000;
+  var LEAF="M111.1 14.1 C107.9 12.1 107.1 17.6 104.2 21.0 C101.4 24.4 97.6 29.0 94.2 34.8 C90.9 40.5 86.6 49.1 84.1 55.8 C81.6 62.4 80.4 69.1 79.2 74.6 C78.1 80.1 77.4 83.1 77.2 88.6 C77.1 94.1 76.9 101.4 78.2 107.8 C79.6 114.1 81.8 120.5 85.1 126.9 C88.4 133.2 93.2 140.1 98.1 145.9 C103.1 151.7 107.6 156.2 114.9 161.6 C122.1 167.0 136.5 174.4 141.5 178.1 C146.5 181.9 144.4 182.4 144.9 184.0 C145.4 185.6 145.0 186.9 144.5 187.9 C144.0 188.9 143.8 189.9 142.1 190.0 C140.5 190.1 139.1 192.0 134.5 188.6 C129.9 185.3 120.7 174.8 114.6 170.0 C108.6 165.2 103.0 162.4 98.1 160.1 C93.2 157.8 89.3 157.0 85.2 156.1 C81.2 155.3 77.8 155.0 73.8 155.1 C69.7 155.3 65.8 155.5 61.1 157.0 C56.5 158.5 50.3 161.4 45.8 164.2 C41.2 167.1 38.9 168.8 33.9 173.9 C28.8 178.9 14.8 189.6 15.4 194.5 C16.0 199.4 29.6 199.5 37.4 203.0 C45.2 206.5 55.2 212.8 62.1 215.8 C69.0 218.7 73.9 219.9 78.8 220.8 C83.6 221.6 87.6 221.2 91.4 220.8 C95.1 220.2 97.5 219.6 101.2 217.8 C105.0 215.9 109.3 213.2 113.9 209.6 C118.5 206.0 125.3 198.6 128.9 196.0 C132.4 193.4 133.5 194.3 135.2 194.0 C137.0 193.7 137.8 193.6 139.6 194.1 C141.5 194.7 144.5 195.9 146.5 197.4 C148.5 198.8 149.9 200.4 151.8 202.8 C153.6 205.1 153.6 210.1 157.4 211.5 C161.1 212.9 174.4 214.3 174.4 211.4 C174.3 208.5 160.9 198.2 157.1 194.0 C153.4 189.8 153.0 188.1 151.9 185.9 C150.8 183.6 150.2 183.4 150.4 180.4 C150.6 177.3 150.4 173.6 153.0 167.6 C155.6 161.6 162.6 150.7 165.8 144.2 C168.9 137.8 170.2 134.2 171.6 128.9 C173.1 123.5 174.3 117.1 174.5 112.0 C174.7 106.9 173.7 102.4 172.8 98.5 C171.8 94.6 170.5 92.0 168.6 88.6 C166.8 85.2 169.2 87.2 161.8 78.0 C154.3 68.8 132.3 43.8 123.9 33.1 C115.4 22.5 114.4 16.1 111.1 14.1Z";
+  var GEO={"cum":[1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,0.9999,0.9997,0.9995,0.9991,0.9986,0.9981,0.9974,0.9967,0.9958,0.9949,0.9938,0.9927,0.9915,0.9902,0.9888,0.9873,0.9857,0.984,0.9823,0.9804,0.9784,0.9764,0.9743,0.972,0.9697,0.9673,0.9648,0.9623,0.9596,0.9568,0.954,0.9511,0.948,0.9449,0.9417,0.9385,0.9351,0.9317,0.9281,0.9245,0.9208,0.9171,0.9132,0.9093,0.9053,0.9012,0.897,0.8928,0.8885,0.8842,0.8797,0.8752,0.8706,0.866,0.8613,0.8565,0.8517,0.8467,0.8418,0.8367,0.8316,0.8265,0.8213,0.816,0.8107,0.8053,0.7998,0.7943,0.7888,0.7832,0.7775,0.7719,0.7661,0.7603,0.7545,0.7486,0.7427,0.7368,0.7308,0.7248,0.7188,0.7128,0.7067,0.7006,0.6945,0.6884,0.6822,0.6761,0.67,0.6638,0.6577,0.6515,0.6454,0.6392,0.6331,0.627,0.6209,0.6148,0.6087,0.6026,0.5966,0.5906,0.5846,0.5787,0.5728,0.5669,0.561,0.5552,0.5495,0.5437,0.5381,0.5324,0.5269,0.5213,0.5159,0.5104,0.5051,0.4998,0.4945,0.4893,0.4842,0.4791,0.4741,0.4692,0.4644,0.4596,0.4549,0.4502,0.4457,0.4412,0.4368,0.4325,0.4283,0.4242,0.4202,0.4162,0.4124,0.4086,0.405,0.4014,0.398,0.3941,0.3894,0.3843,0.3789,0.3734,0.3676,0.3618,0.3558,0.3497,0.3435,0.3372,0.3309,0.3246,0.3182,0.3118,0.3053,0.2989,0.2925,0.286,0.2795,0.273,0.2665,0.26,0.2534,0.2467,0.2399,0.233,0.226,0.219,0.2118,0.2045,0.197,0.1893,0.1814,0.1732,0.1645,0.1557,0.1468,0.1378,0.1291,0.1209,0.113,0.1054,0.0981,0.0911,0.0843,0.0777,0.0713,0.0651,0.0591,0.0532,0.0476,0.0421,0.0367,0.0316,0.0265,0.022,0.0185,0.0152,0.0121,0.0093,0.0068,0.0045,0.0026,0.0011,0.0001,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"right":[null,null,null,null,null,null,null,null,null,null,null,null,null,null,111.8,112.2,112.8,113.4,113.9,114.6,115.2,115.9,116.5,117.1,117.9,118.6,119.2,120.0,120.8,121.5,122.2,123.0,123.8,124.6,125.4,126.1,126.9,127.8,128.6,129.5,130.2,131.1,132.0,132.9,133.8,134.6,135.5,136.4,137.4,138.2,139.1,140.0,140.9,141.9,142.8,143.6,144.5,145.4,146.2,147.1,148.0,148.9,149.8,150.6,151.4,152.2,153.0,153.9,154.8,155.5,156.2,157.0,157.9,158.6,159.4,160.1,160.9,161.6,162.2,163.0,163.8,164.4,165.0,165.8,166.2,166.9,167.6,168.0,168.8,169.1,169.8,170.1,170.6,171.0,171.4,171.8,172.1,172.5,172.8,173.0,173.2,173.5,173.8,173.9,174.0,174.1,174.2,174.4,174.4,174.5,174.5,174.5,174.5,174.4,174.4,174.2,174.1,174.0,174.0,173.8,173.6,173.5,173.2,173.0,172.8,172.6,172.2,172.0,171.8,171.5,171.1,170.9,170.6,170.2,170.0,169.6,169.2,168.9,168.5,168.0,167.6,167.1,166.8,166.2,165.8,165.2,164.8,164.1,163.8,163.1,162.6,162.0,161.5,160.9,160.2,159.8,159.1,158.6,158.0,157.5,156.9,156.4,155.9,155.2,154.9,154.2,153.9,153.4,152.9,152.6,152.1,151.9,151.5,151.1,150.9,150.8,150.6,150.5,150.4,150.4,150.5,150.6,150.9,151.1,151.6,151.9,152.5,153.0,153.6,154.2,154.9,155.6,156.4,157.1,157.9,158.8,159.6,160.5,161.4,162.4,163.2,164.2,165.2,166.4,167.4,168.5,169.5,170.6,171.8,173.0,174.1,174.4,110.6,109.2,107.8,106.1,104.5,102.5,100.4,97.9,94.5,88.8,null,null,null,null,null,null,null,null,null,null]}, CUM=GEO.cum, RIGHT=GEO.right, TOP=14, BOT=222;
+
+  function usdR(n){return new Intl.NumberFormat("en-US",{style:"currency",currency:"USD",maximumFractionDigits:0}).format(n)}
+  function escR(s){return String(s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]})}
+  function byId(id){for(var i=0;i<R.length;i++)if(R[i].id===id)return R[i];return {id:id,name:id}}
+  function asOf(){var p=String(state.updated||"").split("-");if(p.length!==3)return "";var m=["January","February","March","April","May","June","July","August","September","October","November","December"];return m[Number(p[1])-1]+" "+Number(p[2])+", "+p[0]}
+  function yAt(f){if(f<=0)return BOT;if(f>=1)return TOP-1;for(var y=CUM.length-1;y>0;y--){if(CUM[y-1]>=f){var a=CUM[y],b=CUM[y-1];return y-(f-a)/(b-a)}}return TOP-1}
+  function rightAt(y0,y1){var m=0;for(var y=Math.max(0,Math.floor(y0));y<=Math.min(RIGHT.length-1,Math.ceil(y1));y++){if(RIGHT[y]!=null&&RIGHT[y]>m)m=RIGHT[y]}return m||150}
+
+  var t={};R.forEach(function(r){t[r.id]=0});
+  state.sales.forEach(function(s){if(s.r in t)t[s.r]+=Number(s.amt)||0});
+  var ordered=state.sales.slice().sort(function(a,b){if(a.date!==b.date)return a.date<b.date?-1:1;return a.at<b.at?-1:1});
+  var win=null,c={};for(var i=0;i<ordered.length;i++){var s=ordered[i];c[s.r]=(c[s.r]||0)+s.amt;if(c[s.r]>=GOAL){win=s.r;break}}
+  var ranked=R.slice().sort(function(a,b){return t[b.id]-t[a.id]});
+  var combined=0;R.forEach(function(r){combined+=t[r.id]});
+
+  /* Leaf: each restaurant fills from the stem to its own level, by share of leaf area */
+  var lv=[];ranked.forEach(function(r){if(t[r.id]>0)lv.push({r:r,v:t[r.id],y:yAt(Math.min(t[r.id]/GOAL,1))})});
+  var bands="",lines="",leads="";
+  lv.forEach(function(m){bands+='<rect class="f-'+m.r.id+'" x="0" y="'+m.y.toFixed(2)+'" width="190" height="'+(BOT-m.y+0.5).toFixed(2)+'"/>'});
+  lv.forEach(function(m){lines+='<line class="level-line" x1="0" x2="190" y1="'+m.y.toFixed(2)+'" y2="'+m.y.toFixed(2)+'"/>'});
+  var GAP=23,ly=[],n=lv.length;
+  for(i=0;i<n;i++)ly[i]=i===0?Math.max(lv[i].y,10):Math.max(lv[i].y,ly[i-1]+GAP);
+  if(n&&ly[n-1]>221){var over=ly[n-1]-221;for(i=0;i<n;i++)ly[i]-=over}
+  lv.forEach(function(m,i){
+    var y=ly[i],ax=rightAt(m.y-1,m.y+1)+1.5;
+    leads+='<path class="lead-line" d="M'+ax.toFixed(1)+' '+m.y.toFixed(1)+' L184 '+m.y.toFixed(1)+' L190 '+y.toFixed(1)+' L195 '+y.toFixed(1)+'"/>'+
+      '<circle class="lead-dot" cx="'+ax.toFixed(1)+'" cy="'+m.y.toFixed(1)+'" r="1.6"/>'+
+      '<rect class="f-'+m.r.id+'" x="197" y="'+(y-4.6).toFixed(1)+'" width="8" height="8" rx="1.5"/>'+
+      '<text class="lead-name" x="209" y="'+(y-1).toFixed(1)+'">'+escR(m.r.name)+'</text>'+
+      '<text class="lead-amt" x="209" y="'+(y+9).toFixed(1)+'">'+usdR(m.v)+' of '+usdR(GOAL)+'</text>';
+  });
+  var tipY=yAt(1),depth=(lv.length?(BOT-lv[0].y):0).toFixed(1);
+  document.getElementById("rLeafbox").innerHTML=
+    '<svg class="leaf" viewBox="10 0 282 234" role="img" aria-label="Morning Belle leaf. The tip is '+usdR(GOAL)+'. '+escR(lv.map(function(m){return m.r.name+' '+usdR(m.v)}).join(', '))+'">'+
+    '<defs><clipPath id="rleafclip"><path d="'+LEAF+'"/></clipPath></defs>'+
+    '<path class="leaf-empty" d="'+LEAF+'"/>'+
+    '<g clip-path="url(#rleafclip)"><g class="bands" style="--d:'+depth+'px">'+bands+lines+'</g></g>'+
+    '<text class="tip-l" x="'+(rightAt(tipY,tipY+3)+6).toFixed(1)+'" y="'+(tipY+4).toFixed(1)+'">'+usdR(GOAL)+' wins</text>'+
+    leads+'</svg>';
+
+  document.getElementById("rTotal").textContent=usdR(combined);
+  var d=asOf();
+  document.getElementById("rAsof").textContent=d?"Standings as of "+d:"";
+  if(win)document.getElementById("rBanner").innerHTML='<div class="callout win-banner"><b>Winner</b><p>'+escR(byId(win).name)+' reached '+usdR(GOAL)+' first.</p></div>';
+
+  var labels=["1st","2nd","3rd","4th"],html="";
+  ranked.forEach(function(r,i){
+    var v=t[r.id],pct=Math.min(100,v/GOAL*100),isWin=win===r.id;
+    var togo=isWin?"First to "+usdR(GOAL):v>=GOAL?"Reached "+usdR(GOAL):usdR(GOAL-v)+" to go";
+    html+='<div class="rt t-'+r.id+(isWin?' won':'')+'">'+
+      '<div class="eyebrow">'+(v>0?labels[i]:"Not started")+'</div>'+
+      '<div class="rt-name">'+escR(r.name)+'</div>'+
+      '<div class="rt-amt">'+usdR(v)+'</div>'+
+      '<div class="rt-togo">'+togo+'</div>'+
+      '<div class="meter" role="img" aria-label="'+Math.round(pct)+' percent of '+usdR(GOAL)+'"><i style="width:'+pct.toFixed(1)+'%"></i></div>'+
+    '</div>';
+  });
+  document.getElementById("rTiles").innerHTML=html;
+  bindSpec();
+}
+function render(){ if(typeof setPH==='function'&&state.page) setPH(); renderExec(); renderMTD(); renderDash(); renderRace(); if(state.page==='trends') drawTrend(); }
 if(WEEKS.length<6){ var tdi=dock.querySelector('[data-p="trends"]'); if(tdi) tdi.hidden=true; }
 render(); go('exec',false); onScroll(); bindSpec();
 })();
